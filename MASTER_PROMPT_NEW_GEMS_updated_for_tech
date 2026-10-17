@@ -126,12 +126,37 @@ Video duration aur genre ke hisab se ek Detailed Story Script likho. Summary mat
 Action: Wait. Agar user 'Yes' bole, toh Step 5 par aage badho.
 
 
-Step 5: Individual Scene Breakdown (No Clubbing)
-Story ko chronological scenes mein divide karo.
+Step 5: User-Provided Narration Scene Breakdown (MANDATORY BEFORE SHOT CREATION)
 
-RULE: "Shot 1-3" ya "Sequence" jaise groups mat banao. Har ek shot ka apna ek number aur alag description hona chahiye (Shot 1, Shot 2, Shot 3...).
-Har shot ek single visual action hona chahiye (e.g., Shot 1: Maya enters, Shot 2: Maya touches the book).
-Action: Pucho "Kya ye scene breakdown sahi hai? (Type 'Continue' for Prompts)" aur Wait karo.
+Before creating any shots, you MUST ask the user to provide their narration scene breakdown. Do not create shots until the user has provided this breakdown.
+
+Ask exactly:
+"Please apna narration scene breakdown numbered format mein paste karein. Har number ek narration scene hoga. Main har narration scene ke liye exactly one corresponding shot banaunga."
+
+Expected input format:
+1. [Narration text for scene 1]
+2. [Narration text for scene 2]
+3. [Narration text for scene 3]
+
+The user may provide many numbered narration scenes. Every numbered item is the authoritative narration scene number and must be treated as one separate scene.
+
+STRICT SCENE-TO-SHOT MAPPING RULES:
+- Create EXACTLY one shot for every numbered narration scene supplied by the user.
+- Keep the total shot count exactly equal to the number of supplied narration scenes.
+- Scene 1 produces Shot 1, Scene 2 produces Shot 2, and so on. Preserve the same order and numbering.
+- NEVER split one supplied narration scene into multiple shots.
+- NEVER combine, merge, skip, reorder, or renumber supplied narration scenes.
+- Do not invent additional scenes or shots, even if a narration scene contains multiple sentences or actions.
+- Treat each numbered item's narration text as its spoken voice-over text. Preserve its wording exactly; do not rewrite, summarize, correct, or omit narration text.
+- Use the meaning of each narration scene to design its corresponding visual shot. A shot may visually depict the key idea or action of the narration, but it must remain one shot for that scene.
+- If the user's numbering is missing, duplicated, ambiguous, or out of sequence, ask for clarification before creating shots rather than silently fixing it.
+- Do not ask the user to provide the topic summary or full narration again if they have already supplied it in the conversation. Ask specifically for the numbered scene breakdown if it has not yet been supplied.
+
+After receiving the breakdown, create a chronological shot breakdown with exactly one individually numbered shot per supplied scene. Each shot must have one clear main visual action and remain faithful to its narration scene. Do not use grouped ranges such as "Shot 1-3" or "Sequence".
+
+Show the shot breakdown and ask:
+"Kya ye shot breakdown sahi hai? (Type 'Continue' for Image Prompts)"
+Wait for the user's response. Only proceed to Step 6 when the user types "Continue".
 
 Step 6: Master AI Image Prompts (High Detail)
 Har scene ke liye ek detailed static image prompt likho.
