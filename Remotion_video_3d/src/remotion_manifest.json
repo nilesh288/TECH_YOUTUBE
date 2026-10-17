@@ -1,0 +1,490 @@
+[
+    {
+        "scene_id": 1,
+        "text": "You are lying on your back.The bed slowly slides you into a brightly lit, white plastic tube.The air in the room is cold.",
+        "startSec": 0.0,
+        "endSec": 7.43,
+        "durationSec": 7.43,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 2,
+        "text": "Suddenly, a deafening sound echoes around your head.Bang. Bang. Bang. Bang.It sounds like someone is hitting the outside of the machine with a heavy steel hammer.",
+        "startSec": 7.43,
+        "endSec": 18.16,
+        "durationSec": 10.73,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 3,
+        "text": "You can't see anything moving. You can't feel anything touching you.But in this exact moment, an invisible force is penetrating every single cell of your body.",
+        "startSec": 18.16,
+        "endSec": 29.08,
+        "durationSec": 10.92,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 4,
+        "text": "It is looking straight through your skin, your bones, and your organs.",
+        "startSec": 29.08,
+        "endSec": 33.55,
+        "durationSec": 4.47,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 5,
+        "text": "How can a machine see deep inside a human brain without a single drop of dangerous radiation?",
+        "startSec": 33.55,
+        "endSec": 39.52,
+        "durationSec": 5.97,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 6,
+        "text": "what kind of extreme engineering does it take to build something this powerful?Today, we go inside the MRI machine.",
+        "startSec": 39.52,
+        "endSec": 49.23,
+        "durationSec": 9.71,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 7,
+        "text": "Think about it. If you had to map the entire inside of a human being—where would you even start?",
+        "startSec": 49.23,
+        "endSec": 56.1,
+        "durationSec": 6.87,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 8,
+        "text": "For decades, doctors only had two brutal options.Option one was exploratory surgery. Cut the patient open and look.",
+        "startSec": 56.1,
+        "endSec": 63.99,
+        "durationSec": 7.89,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 9,
+        "text": "Option two was the X-ray.X-rays are incredibly useful, but they use ionizing radiation. They tear through tissue, and they only really show dense structures, like bone.",
+        "startSec": 63.99,
+        "endSec": 74.73,
+        "durationSec": 10.74,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 10,
+        "text": "If you wanted to see soft tissue, like a tumor in a brain, you were largely blind.But inventing a new way to see was a leap into the absolute unknown.",
+        "startSec": 74.73,
+        "endSec": 84.66,
+        "durationSec": 9.93,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 11,
+        "text": "In the 1970s, two scientists had a crazy idea. Paul Lauterbur and Peter Mansfield.They studied a phenomenon called Nuclear Magnetic Resonance.",
+        "startSec": 84.66,
+        "endSec": 96.31,
+        "durationSec": 11.65,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 12,
+        "text": "They wondered if they could manipulate a magnetic field to talk to the water molecules inside a human body.",
+        "startSec": 96.31,
+        "endSec": 102.51,
+        "durationSec": 6.2,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 13,
+        "text": "The first full-body human scan happened in 1977.It took nearly five hours, just to produce one single, terrifyingly grainy image.",
+        "startSec": 102.51,
+        "endSec": 111.84,
+        "durationSec": 9.33,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 14,
+        "text": "But it worked. It changed medicine forever. And it won them the Nobel Prize.But how do you manufacture a machine that can do this reliably, thousands of times a day, in hospitals across the world?",
+        "startSec": 111.84,
+        "endSec": 123.98,
+        "durationSec": 12.14,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 15,
+        "text": "Because building a modern MRI machine is one of the most extreme manufacturing processes on the planet.Only a handful of companies worldwide have the precision to pull it off. Siemens. GE. Philips. Canon.",
+        "startSec": 123.98,
+        "endSec": 137.0,
+        "durationSec": 13.02,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 16,
+        "text": "A single machine costs between one and three million dollars.And it all starts with the core.At the absolute center of every MRI machine is the main magnet.",
+        "startSec": 137.0,
+        "endSec": 147.19,
+        "durationSec": 10.19,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 17,
+        "text": "But this is not a permanent metal magnet. It is an incredibly complex superconducting electromagnet.Engineers wind wire around a massive central cylinder, but they can't use standard copper.",
+        "startSec": 147.19,
+        "endSec": 158.97,
+        "durationSec": 11.78,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 18,
+        "text": "They use a specialized alloy of niobium and titanium, drawn through microscopic diamond dies into filaments thinner than a human hair.",
+        "startSec": 158.97,
+        "endSec": 167.45,
+        "durationSec": 8.48,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 19,
+        "text": "Thousands of these filaments are twisted into a single cable, and they use miles of it.Stretched out, the wire inside a single MRI magnet could reach for dozens of miles, wound around the cylinder with sub-millimeter precision.",
+        "startSec": 167.45,
+        "endSec": 180.81,
+        "durationSec": 13.36,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 20,
+        "text": "But running massive electricity through miles of wire creates a catastrophic problem. Friction. Resistance. Heat.Left alone, the magnet would literally melt itself into slag in minutes.",
+        "startSec": 180.81,
+        "endSec": 193.23,
+        "durationSec": 12.42,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 21,
+        "text": "So they freeze it.The entire coil is sealed inside a vacuum chamber and submerged in liquid helium, dropping the wire to minus 269 degrees Celsius.",
+        "startSec": 193.23,
+        "endSec": 203.62,
+        "durationSec": 10.39,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 22,
+        "text": "Just four degrees above absolute zero. Colder than the darkest depths of outer space.And this is where the laws of physics fundamentally change.",
+        "startSec": 203.62,
+        "endSec": 213.4,
+        "durationSec": 9.78,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 23,
+        "text": "At minus 269 degrees, the niobium-titanium wire becomes a superconductor. It loses one hundred percent of its electrical resistance.",
+        "startSec": 213.4,
+        "endSec": 223.19,
+        "durationSec": 9.79,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 24,
+        "text": "Electricity can flow through this wire forever, in an endless loop, without losing a single drop of energy.This creates a magnetic field of terrifying power.",
+        "startSec": 223.19,
+        "endSec": 233.42,
+        "durationSec": 10.23,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 25,
+        "text": "A standard hospital MRI runs 1.5 to 3 Tesla. That is 60,000 times stronger than the magnetic field of the Earth itself.",
+        "startSec": 233.42,
+        "endSec": 241.9,
+        "durationSec": 8.48,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 26,
+        "text": "Enough force to rip a heavy steel wrench out of your hand from across the room and turn it into a lethal projectile.",
+        "startSec": 241.9,
+        "endSec": 249.15,
+        "durationSec": 7.25,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 27,
+        "text": "It can pull a hospital bed across the floor. It can rip an oxygen tank through the air like a missile.So what does that field actually do to your body when you slide inside?",
+        "startSec": 249.15,
+        "endSec": 259.46,
+        "durationSec": 10.31,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 28,
+        "text": "The human body is about sixty percent water, and water is full of hydrogen.The nucleus of a hydrogen atom acts like a tiny, microscopic compass needle.",
+        "startSec": 259.46,
+        "endSec": 268.99,
+        "durationSec": 9.53,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 29,
+        "text": "Normally, the billions of hydrogen atoms in your body are spinning randomly. They point in every possible direction.But the moment you enter that tube, the 60,000-times-Earth field grabs them.",
+        "startSec": 268.99,
+        "endSec": 279.88,
+        "durationSec": 10.89,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 30,
+        "text": "Instantly, billions of hydrogen atoms snap to attention, aligning with the machine's magnetic field.Think of a chaotic crowd in a town square.",
+        "startSec": 279.88,
+        "endSec": 289.31,
+        "durationSec": 9.43,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 31,
+        "text": "An alarm goes off, and every person immediately stops, turns, and faces the exact same way.That is what the hydrogen in your body is doing. You can't feel it, but your atoms are standing at attention.",
+        "startSec": 289.31,
+        "endSec": 302.09,
+        "durationSec": 12.78,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 32,
+        "text": "But aligned atoms don't create an image. They're just waiting. We need them to move, and we need them to talk to us.And next comes the part everyone recognizes.",
+        "startSec": 302.09,
+        "endSec": 311.96,
+        "durationSec": 9.87,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 33,
+        "text": "The noise.Bang. Bang. Bang.Most people think that's some kind of mechanical spinning camera. It isn't.It's the sound of heavy metal expanding and contracting under extreme magnetic stress.",
+        "startSec": 311.96,
+        "endSec": 325.55,
+        "durationSec": 13.59,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 34,
+        "text": "Inside the main magnet are smaller coils called gradient coils. Their job is to rapidly turn on and off, changing the magnetic field in very specific slices of your body.",
+        "startSec": 325.55,
+        "endSec": 336.18,
+        "durationSec": 10.63,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 35,
+        "text": "They twist. They slam against their epoxy mountings. That intense vibration is the banging sound you hear.",
+        "startSec": 336.18,
+        "endSec": 344.09,
+        "durationSec": 7.91,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 36,
+        "text": "While the gradient coils bang away, the machine fires a precisely tuned Radio Frequency pulse into your body.",
+        "startSec": 344.09,
+        "endSec": 350.99,
+        "durationSec": 6.9,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 37,
+        "text": "This targets the aligned hydrogen atoms and forcibly knocks them ninety degrees off their axis.",
+        "startSec": 350.99,
+        "endSec": 357.01,
+        "durationSec": 6.02,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 38,
+        "text": "If the main magnetic field is a powerful river holding a heavy door shut, the radio pulse is a sudden, massive kick that forces the door open.",
+        "startSec": 357.01,
+        "endSec": 366.79,
+        "durationSec": 9.78,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 39,
+        "text": "The moment the pulse turns off, the main magnetic field takes over again, and the atoms snap back into position.",
+        "startSec": 366.79,
+        "endSec": 374.26,
+        "durationSec": 7.47,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 40,
+        "text": "here is the magic. When they snap back, they release a tiny pulse of energy. A microscopic radio echo. The machine listens for exactly this.",
+        "startSec": 374.26,
+        "endSec": 384.25,
+        "durationSec": 9.99,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 41,
+        "text": "Different tissues hold different amounts of water. Bone has very little. Fat has a lot. Brain tissue, muscle, and hidden tumors all have highly specific water concentrations.",
+        "startSec": 384.25,
+        "endSec": 395.49,
+        "durationSec": 11.24,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 42,
+        "text": "Because of this, their hydrogen atoms snap back at slightly different speeds. They sing a different tune.",
+        "startSec": 395.49,
+        "endSec": 402.14,
+        "durationSec": 6.65,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 43,
+        "text": "The MRI's computer arrays capture billions of these echoes and use complex mathematics to map exactly where they came from.",
+        "startSec": 402.14,
+        "endSec": 410.14,
+        "durationSec": 8.0,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 44,
+        "text": "Pixel by pixel, slice by slice, it builds a perfectly detailed, three-dimensional model of your insides.But what if something goes wrong?",
+        "startSec": 410.14,
+        "endSec": 419.32,
+        "durationSec": 9.18,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 45,
+        "text": "You see, a machine this sensitive and this powerful cannot just be plugged into a standard hospital room.A single machine can weigh up to fifteen thousand pounds.",
+        "startSec": 419.32,
+        "endSec": 429.03,
+        "durationSec": 9.71,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 46,
+        "text": "Hospitals often have to rip open exterior walls and reinforce the floors with thick structural steel just to hold the weight.But here's where it gets highly specialized. The room itself must be completely isolated from the outside world.",
+        "startSec": 429.03,
+        "endSec": 442.9,
+        "durationSec": 13.87,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 47,
+        "text": "Engineers line the walls, floor, and ceiling with heavy copper plates, creating a Faraday cage.",
+        "startSec": 442.9,
+        "endSec": 449.53,
+        "durationSec": 6.63,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 48,
+        "text": "It stops outside radio signals — a cell tower, a police radio, even static from a passing car — from ruining the ultra-sensitive echoes from your body.",
+        "startSec": 449.53,
+        "endSec": 459.72,
+        "durationSec": 10.19,
+        "videoDurationSec": 4.011
+    },
+    {
+        "scene_id": 49,
+        "text": "Here's the part they don't put in textbooks. The magnet is never turned off. Ever.Even when the hospital is closed, even when no patient is in the room, the superconducting loop runs endlessly.",
+        "startSec": 459.72,
+        "endSec": 472.12,
+        "durationSec": 12.4,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 50,
+        "text": "The 60,000-times-Earth magnetic field is always active.This is why the doors to the MRI suite are guarded so strictly, with multiple metal detector checkpoints.",
+        "startSec": 472.12,
+        "endSec": 482.18,
+        "durationSec": 10.06,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 51,
+        "text": "If a nurse accidentally walks in with a steel oxygen tank, or a janitor brings in a floor buffer, the machine will rip it from their hands with devastating force.",
+        "startSec": 482.18,
+        "endSec": 491.2,
+        "durationSec": 9.02,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 52,
+        "text": "If someone is pinned against the scanner by a flying metal object, the only way to shut it down is extreme. It's called a Quench.",
+        "startSec": 491.2,
+        "endSec": 499.34,
+        "durationSec": 8.14,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 53,
+        "text": "A quench is a violent emergency failsafe. If the big red Quench button is pushed, a massive vent opens, and the liquid helium keeping the magnet at minus 269 degrees is instantly allowed to boil off.",
+        "startSec": 499.34,
+        "endSec": 514.03,
+        "durationSec": 14.69,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 54,
+        "text": "It expands violently into a cloud of freezing white gas, blasting out through an emergency pipe in the hospital roof.",
+        "startSec": 514.03,
+        "endSec": 521.25,
+        "durationSec": 7.22,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 55,
+        "text": "Within seconds, the wire warms up, superconductivity breaks, and the magnetic field instantly collapses. The machine dies.",
+        "startSec": 521.25,
+        "endSec": 528.8,
+        "durationSec": 7.55,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 56,
+        "text": "But a quench is catastrophic. It vents tens of thousands of dollars of rare helium, and the shock can destroy the millions of dollars of precision wire inside. It's the ultimate last resort.",
+        "startSec": 528.8,
+        "endSec": 541.14,
+        "durationSec": 12.34,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 57,
+        "text": "The MRI machine is a masterclass in extreme engineering. It is humanity's ability to take the absolute coldest temperatures in the known universe, miles of exotic alloys, and the deepest principles of quantum physics, and wrap them all inside a quiet white plastic tube.",
+        "startSec": 541.14,
+        "endSec": 558.06,
+        "durationSec": 16.92,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 58,
+        "text": "For thousands of years, the human body was a locked box. If something was wrong inside, the only way to find out was to physically cut that box open.",
+        "startSec": 558.06,
+        "endSec": 569.16,
+        "durationSec": 11.1,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 59,
+        "text": "Today, we use superconducting invisible forces to peer straight through the skin.An MRI isn't just a giant magnet.",
+        "startSec": 569.16,
+        "endSec": 577.81,
+        "durationSec": 8.65,
+        "videoDurationSec": 8.0
+    },
+    {
+        "scene_id": 60,
+        "text": "It is our ability to bend the fundamental laws of nature to save millions of lives.But building the magnet and understanding the physics is only half of this story.",
+        "startSec": 577.81,
+        "endSec": 587.8,
+        "durationSec": 9.99,
+        "videoDurationSec": 6.016
+    },
+    {
+        "scene_id": 61,
+        "text": "Because the same machine that can heal you... can also kill you.",
+        "startSec": 587.8,
+        "endSec": 604.78,
+        "durationSec": 16.98,
+        "videoDurationSec": 8.0
+    }
+]
