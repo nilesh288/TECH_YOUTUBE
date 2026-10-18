@@ -308,6 +308,12 @@ def set_video_duration(page, seconds):
 
     if len(matches) != 1:
         settings_text = " | ".join(dict.fromkeys(visible_labels[-40:]))
+        # Close the settings menu before returning a safe failure.
+        try:
+            settings.click()
+            page.wait_for_timeout(150)
+        except Exception:
+            pass
         raise RuntimeError(
             f"Could not uniquely identify the {seconds}s duration option "
             f"(matches={len(matches)}). Visible controls: {settings_text}. "
