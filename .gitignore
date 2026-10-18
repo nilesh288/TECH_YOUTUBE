@@ -2,3 +2,5 @@ node_modules/
 out/
 build/
 .cache/
+.venv/
+node_modules/
