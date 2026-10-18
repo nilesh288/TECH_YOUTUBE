@@ -4,3 +4,5 @@ build/
 .cache/
 .venv/
 node_modules/
+__pycache__/
+*.bak
