@@ -15,8 +15,8 @@ def main():
         pw.stop()
         raise RuntimeError("Could not find Flow settings button.")
 
-    before = (settings.inner_text() or "").replace("\\n", " ")
-    found = re.search(r"(?<!\\d)(4|6|8|10)s(?!\\d)", before)
+    before = (settings.inner_text() or "").replace("\n", " ")
+    found = re.search(r"(?<!\d)(4|6|8|10)s(?!\d)", before)
     original = int(found.group(1)) if found else None
     print("Current settings:", before)
     print("This POC only changes settings; it will NOT click Generate or spend credits.")
@@ -40,7 +40,7 @@ def main():
                 print(f"WARNING: Could not restore original duration: {exc}")
         pw.stop()
 
-    print("\\nDURATION POC SUMMARY")
+    print("\nDURATION POC SUMMARY")
     for seconds, result in results.items():
         print(f"  {seconds}s: {result}")
     print("No video generation was submitted.")
