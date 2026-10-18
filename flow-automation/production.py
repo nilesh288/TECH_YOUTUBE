@@ -242,7 +242,7 @@ def check_video_settings(page, expected_duration=None):
     if button.count() != 1:
         raise RuntimeError("Could not inspect Flow video settings.")
 
-    current = (button.inner_text() or "").replace("\\n", " ")
+    current = (button.inner_text() or "").replace("\n", " ")
     expected = ("Video", "720p", "crop_16_9", "x1")
 
     if any(value not in current for value in expected):
@@ -252,7 +252,7 @@ def check_video_settings(page, expected_duration=None):
         )
 
     if expected_duration is not None and not re.search(
-        rf"(?<!\\d){expected_duration}s(?!\\d)", current
+        rf"(?<!\d){expected_duration}s(?!\d)", current
     ):
         raise RuntimeError(
             f"Duration did not apply: expected {expected_duration}s; "
@@ -268,8 +268,8 @@ def set_video_duration(page, seconds):
     if settings.count() != 1:
         raise RuntimeError("Could not find Flow settings button.")
 
-    current = (settings.inner_text() or "").replace("\\n", " ")
-    if re.search(rf"(?<!\\d){seconds}s(?!\\d)", current):
+    current = (settings.inner_text() or "").replace("\n", " ")
+    if re.search(rf"(?<!\d){seconds}s(?!\d)", current):
         check_video_settings(page, seconds)
         print(f"Duration already selected: {seconds}s")
         return
@@ -279,7 +279,7 @@ def set_video_duration(page, seconds):
 
     # Only click a visible control whose complete label is an exact duration.
     exact_duration = re.compile(
-        rf"^\\s*{seconds}\\s*(?:s|sec|secs|second|seconds)?\\s*$",
+        rf"^\s*{seconds}\s*(?:s|sec|secs|second|seconds)?\s*$",
         re.I,
     )
     candidates = page.locator(
@@ -300,7 +300,7 @@ def set_video_duration(page, seconds):
                 or ""
             ).strip()
             if label:
-                visible_labels.append(label.replace("\\n", " ")[:80])
+                visible_labels.append(label.replace("\n", " ")[:80])
             if exact_duration.fullmatch(label):
                 matches.append(element)
         except Exception:
