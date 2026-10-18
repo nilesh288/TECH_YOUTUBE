@@ -1,5 +1,4 @@
 from pathlib import Path
-import json
 import random
 import re
 import sys
@@ -49,37 +48,7 @@ def read_prompts(path):
         if not prompt:
             raise ValueError(f"Shot {number} has an empty prompt")
 
-        if path == VIDEO_PROMPTS:
-            try:
-                payload = json.loads(prompt)
-            except json.JSONDecodeError as exc:
-                raise ValueError(
-                    f"Shot {number} must contain a JSON object with "
-                    "'duration' and 'prompt' fields."
-                ) from exc
-
-            if not isinstance(payload, dict):
-                raise ValueError(f"Shot {number} JSON must be an object.")
-
-            duration = payload.get("duration")
-            if isinstance(duration, bool) or duration not in (4, 6, 8, 10):
-                raise ValueError(
-                    f"Shot {number} duration must be one of 4, 6, 8, or 10."
-                )
-
-            video_prompt = payload.get("prompt")
-            if not isinstance(video_prompt, str) or not video_prompt.strip():
-                raise ValueError(
-                    f"Shot {number} JSON needs a non-empty string 'prompt'."
-                )
-
-            prompts.append({
-                "number": number,
-                "prompt": video_prompt.strip(),
-                "duration": duration,
-            })
-        else:
-            prompts.append({"number": number, "prompt": prompt})
+        prompts.append({"number": number, "prompt": prompt})
 
     prompts.sort(key=lambda item: item["number"])
     numbers = [p["number"] for p in prompts]
@@ -237,93 +206,20 @@ def attach_image(page, number):
         page.wait_for_timeout(200)
 
 
-def check_video_settings(page, expected_duration=None):
+def check_video_settings(page):
     button = page.locator('button[aria-label="Settings trigger"]')
     if button.count() != 1:
         raise RuntimeError("Could not inspect Flow video settings.")
 
     current = (button.inner_text() or "").replace("\n", " ")
-    expected = ("Video", "720p", "crop_16_9", "x1")
+    expected = ("Video", "720p", "4s", "crop_16_9", "x1")
 
     if any(value not in current for value in expected):
         raise RuntimeError(
-            f"Expected Video · 720p · 16:9 · x1; found: {current!r}. "
-            "Set these settings manually and run again."
+            f"Expected Video · 720p · 4s · 16:9 · x1; found: {current!r}. "
+            "Set the desired settings manually and run again."
         )
 
-    if expected_duration is not None and not re.search(
-        rf"(?<!\d){expected_duration}s(?!\d)", current
-    ):
-        raise RuntimeError(
-            f"Duration did not apply: expected {expected_duration}s; "
-            f"settings show {current!r}."
-        )
-
-
-def set_video_duration(page, seconds):
-    if seconds not in (4, 6, 8, 10):
-        raise ValueError(f"Unsupported POC duration: {seconds}")
-
-    settings = page.locator('button[aria-label="Settings trigger"]')
-    if settings.count() != 1:
-        raise RuntimeError("Could not find Flow settings button.")
-
-    current = (settings.inner_text() or "").replace("\n", " ")
-    if re.search(rf"(?<!\d){seconds}s(?!\d)", current):
-        check_video_settings(page, seconds)
-        print(f"Duration already selected: {seconds}s")
-        return
-
-    settings.click()
-    page.wait_for_timeout(350)
-
-    # Only click a visible control whose complete label is an exact duration.
-    exact_duration = re.compile(
-        rf"^\s*{seconds}\s*(?:s|sec|secs|second|seconds)?\s*$",
-        re.I,
-    )
-    candidates = page.locator(
-        'button, [role="option"], [role="radio"], [role="menuitem"], '
-        '[role="button"]'
-    )
-    matches = []
-    visible_labels = []
-
-    for i in range(candidates.count()):
-        element = candidates.nth(i)
-        try:
-            if not element.is_visible():
-                continue
-            label = (
-                element.get_attribute("aria-label")
-                or element.inner_text()
-                or ""
-            ).strip()
-            if label:
-                visible_labels.append(label.replace("\n", " ")[:80])
-            if exact_duration.fullmatch(label):
-                matches.append(element)
-        except Exception:
-            continue
-
-    if len(matches) != 1:
-        settings_text = " | ".join(dict.fromkeys(visible_labels[-40:]))
-        # Close the settings menu before returning a safe failure.
-        try:
-            settings.click()
-            page.wait_for_timeout(150)
-        except Exception:
-            pass
-        raise RuntimeError(
-            f"Could not uniquely identify the {seconds}s duration option "
-            f"(matches={len(matches)}). Visible controls: {settings_text}. "
-            "No generation was submitted."
-        )
-
-    matches[0].click()
-    page.wait_for_timeout(350)
-    check_video_settings(page, seconds)
-    print(f"Selected and verified duration: {seconds}s")
 
 def save_video(page, video, number):
     video.hover()
@@ -433,7 +329,6 @@ def run_batch(prompts, mode):
 
                     old = signatures(page, '[aria-label="Generated video"]')
                     attach_image(page, number)
-                    set_video_duration(page, item["duration"])
                 else:
                     old = signatures(page, "flow-image-tile", image=True)
 
@@ -535,10 +430,7 @@ def main():
         print("Random delay between prompts: 20–30 seconds.")
     else:
         print("Random delay between prompts: 50–90 seconds.")
-        print("Each video's JSON duration (4/6/8/10 seconds) will be selected.")
-        for item in prompts:
-            if "duration" in item:
-                print(f"  Shot {item['number']:03d}: {item['duration']}s")
+        print("Video settings will be checked before generation.")
 
     confirm = input(
         "\nThis process uses Google Flow credits. Type YES to continue: "
