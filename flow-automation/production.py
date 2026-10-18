@@ -84,24 +84,31 @@ def connect_flow():
         raise
 
 
+def tile_signature(element):
+    # Flow may render a video element while generation is in progress,
+    # or an image thumbnail in other tile states.
+    for selector, expression in (
+        ("video", "(e) => e.currentSrc || e.src"),
+        ("img", "(e) => e.currentSrc || e.src"),
+    ):
+        try:
+            child = element.locator(selector).first
+            value = child.evaluate(expression)
+            if value:
+                return value
+        except Exception:
+            pass
+    return None
+
+
 def signatures(page, selector, image=False):
     found = set()
     elements = page.locator(selector)
 
     for i in range(elements.count()):
-        try:
-            if image:
-                value = elements.nth(i).locator("img").first.evaluate(
-                    "(e) => e.currentSrc || e.src"
-                )
-            else:
-                value = elements.nth(i).evaluate(
-                    "(e) => e.currentSrc || e.src"
-                )
-            if value:
-                found.add(value)
-        except Exception:
-            pass
+        value = tile_signature(elements.nth(i))
+        if value:
+            found.add(value)
 
     return found
 
@@ -114,25 +121,17 @@ def wait_for_new(page, selector, old, timeout, image=False):
 
         for i in range(elements.count()):
             element = elements.nth(i)
-            try:
-                if image:
-                    value = element.locator("img").first.evaluate(
-                        "(e) => e.currentSrc || e.src"
-                    )
-                else:
-                    value = element.evaluate(
-                        "(e) => e.currentSrc || e.src"
-                    )
+            value = tile_signature(element)
 
-                if value and value not in old:
-                    return element
-            except Exception:
-                pass
+            if value and value not in old:
+                return element
 
         time.sleep(2)
 
+    matched = page.locator(selector).count()
     raise TimeoutError(
-        "Timed out waiting for a new result. Check Flow before retrying."
+        f"Timed out waiting for a new result tile. "
+        f"Selector matches: {matched}. Check Flow before retrying."
     )
 
 
@@ -222,29 +221,30 @@ def check_video_settings(page):
 
 
 def save_video(page, video, number):
+    # The result is a FLOW-VIDEO-TILE, not a video element.
+    video.scroll_into_view_if_needed()
+    page.mouse.move(0, 0)
+    page.wait_for_timeout(300)
     video.hover()
-    page.wait_for_timeout(500)
 
-    menus = page.get_by_role("button", name="More options", exact=True)
-    if menus.count() < 2:
-        raise RuntimeError("Could not find generated video's options menu.")
-
-    menus.last.click()
+    tile_menu = video.get_by_role(
+        "button", name="More options", exact=True
+    )
+    tile_menu.wait_for(state="visible", timeout=10000)
+    tile_menu.click()
     page.wait_for_timeout(300)
 
     download_item = page.get_by_role(
         "menuitem", name="Download", exact=False
     )
-    if download_item.count() != 1:
-        raise RuntimeError("Could not identify video Download.")
+    download_item.wait_for(state="visible", timeout=10000)
     download_item.click()
     page.wait_for_timeout(400)
 
     original = page.get_by_role("menuitem").filter(
         has_text=re.compile(r"720p.*Original size", re.I | re.S)
     )
-    if original.count() != 1 or not original.first.is_visible():
-        raise RuntimeError("Could not identify 720p Original size.")
+    original.first.wait_for(state="visible", timeout=10000)
 
     output = VIDEO_DIR / f"Shot_{number:03d}.mp4"
 
@@ -327,7 +327,7 @@ def run_batch(prompts, mode):
                         ).first.wait_for(timeout=30000)
                         check_video_settings(page)
 
-                    old = signatures(page, '[aria-label="Generated video"]')
+                    old = signatures(page, "flow-video-tile")
                     attach_image(page, number)
                 else:
                     old = signatures(page, "flow-image-tile", image=True)
@@ -348,7 +348,7 @@ def run_batch(prompts, mode):
 
                 if is_video:
                     result = wait_for_new(
-                        page, '[aria-label="Generated video"]',
+                        page, "flow-video-tile",
                         old, VIDEO_TIMEOUT
                     )
                     saved = save_video(page, result, number)

@@ -33,14 +33,25 @@ with sync_playwright() as p:
     )
 
     if not resolution.count() or not resolution.first.is_visible():
+       
         menus = page.get_by_role(
             "button", name="More options", exact=True
         )
 
-        if menus.count() < 2:
-            raise RuntimeError("Could not find the video options menu.")
+        if menus.count() != 2:
+            raise RuntimeError(
+                f"Expected 2 More options buttons, found {menus.count()}."
+            )
 
-        menus.last.click()
+        menu = menus.nth(1)
+
+        if not menu.is_visible():
+            raise RuntimeError(
+                "The video toolbar More options button is not visible."
+            )
+
+        menu.click()
+
         page.wait_for_timeout(300)
 
         download_item = page.get_by_role(
