@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from production import connect_flow, set_video_duration  # noqa: E402
+from production import connect_flow, check_video_settings, set_video_duration  # noqa: E402
 
 
 def main():
@@ -15,6 +15,7 @@ def main():
         pw.stop()
         raise RuntimeError("Could not find Flow settings button.")
 
+    check_video_settings(page)
     before = (settings.inner_text() or "").replace("\n", " ")
     found = re.search(r"(?<!\d)(4|6|8|10)s(?!\d)", before)
     original = int(found.group(1)) if found else None
