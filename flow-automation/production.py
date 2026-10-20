@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 import random
 import re
 import sys
@@ -6,11 +7,11 @@ import time
 
 from playwright.sync_api import sync_playwright
 
-BASE = Path.home() / "flow-automation"
+BASE = Path(__file__).resolve().parent
 IMAGE_PROMPTS = BASE / "image_prompt.txt"
-VIDEO_PROMPTS = BASE / "video_prompt.txt"
+VIDEO_PROMPTS = BASE / "video_prompt.json"
 IMAGE_DIR = BASE / "downloads"
-VIDEO_DIR = BASE / "videos"
+VIDEO_DIR = BASE / ("duration_poc_videos" if "--duration-poc" in sys.argv else "videos")
 
 IMAGE_DIR.mkdir(parents=True, exist_ok=True)
 VIDEO_DIR.mkdir(parents=True, exist_ok=True)
@@ -61,6 +62,35 @@ def read_prompts(path):
     return prompts
 
 
+
+def read_video_scenes(path):
+    data = json.loads(path.read_text(encoding="utf-8"))
+    scenes = data.get("scenes") if isinstance(data, dict) else None
+
+    if not isinstance(scenes, list) or not scenes:
+        raise ValueError("JSON must contain a non-empty scenes list.")
+    if data.get("total_scenes") != len(scenes):
+        raise ValueError("total_scenes does not match scenes length.")
+
+    prompts = []
+    for number, scene in enumerate(scenes, 1):
+        if not isinstance(scene, dict):
+            raise ValueError(f"Scene {number} must be an object.")
+
+        duration = scene.get("duration_seconds")
+        prompt = scene.get("video_prompt")
+        if type(duration) is not int or duration not in {4, 6, 8, 10}:
+            raise ValueError(f"Scene {number}: duration must be 4, 6, 8, or 10.")
+        if not isinstance(prompt, str) or not prompt.strip():
+            raise ValueError(f"Scene {number}: video_prompt is empty.")
+
+        prompts.append({
+            "number": number,
+            "prompt": prompt.strip(),
+            "duration_seconds": duration,
+        })
+    return prompts
+
 def connect_flow():
     pw = sync_playwright().start()
     try:
@@ -85,15 +115,16 @@ def connect_flow():
 
 
 def tile_signature(element):
-    # Flow may render a video element while generation is in progress,
-    # or an image thumbnail in other tile states.
+    # Check for a child before evaluate(), which can wait for a missing element.
     for selector, expression in (
         ("video", "(e) => e.currentSrc || e.src"),
         ("img", "(e) => e.currentSrc || e.src"),
     ):
         try:
-            child = element.locator(selector).first
-            value = child.evaluate(expression)
+            children = element.locator(selector)
+            if children.count() == 0:
+                continue
+            value = children.first.evaluate(expression, timeout=2000)
             if value:
                 return value
         except Exception:
@@ -175,17 +206,23 @@ def attach_image(page, number):
         '[aria-label="Add ingredients to the prompt box"]'
     )
 
+    print("ATTACH: locating ingredients button", flush=True)
     if toggle.count() != 1:
         raise RuntimeError("Could not find Add ingredients button.")
 
     if toggle.get_attribute("aria-expanded") != "true":
-        toggle.click()
+        print("ATTACH: opening ingredients panel", flush=True)
+        toggle.click(timeout=10000)
         page.wait_for_timeout(400)
+
+    print("ATTACH: finding asset search", flush=True)
 
     panel = page.locator("flow-add-menu-popover-content")
     search = panel.get_by_role("textbox", name="Search assets")
-    search.fill(name)
+    print(f"ATTACH: searching for {name}", flush=True)
+    search.fill(name, timeout=10000)
     page.wait_for_timeout(500)
+    print("ATTACH: checking search result", flush=True)
 
     asset = panel.get_by_role(
         "option",
@@ -197,27 +234,81 @@ def attach_image(page, number):
             f"{name} not found in Flow assets. Upload it to this project."
         )
 
-    asset.first.click()
+    print("ATTACH: selecting reference image", flush=True)
+    asset.first.click(timeout=10000)
     page.wait_for_timeout(300)
+    print("ATTACH: reference image selected", flush=True)
 
     if toggle.get_attribute("aria-expanded") == "true":
         toggle.click()
         page.wait_for_timeout(200)
 
 
-def check_video_settings(page):
+
+
+
+def check_video_settings(page, duration=None):
     button = page.locator('button[aria-label="Settings trigger"]')
     if button.count() != 1:
         raise RuntimeError("Could not inspect Flow video settings.")
 
     current = (button.inner_text() or "").replace("\n", " ")
-    expected = ("Video", "720p", "4s", "crop_16_9", "x1")
+    expected = ("Video", "720p", "crop_16_9", "x1")
 
     if any(value not in current for value in expected):
         raise RuntimeError(
-            f"Expected Video · 720p · 4s · 16:9 · x1; found: {current!r}. "
-            "Set the desired settings manually and run again."
+            f"Unexpected Flow video settings: {current!r}"
         )
+
+    if duration is not None and f"{duration}s" not in current:
+        raise RuntimeError(
+            f"Expected {duration}s duration; Flow settings show {current!r}"
+        )
+
+    if duration is None and not any(
+        f"{seconds}s" in current for seconds in (4, 6, 8, 10)
+    ):
+        raise RuntimeError(
+            f"Could not identify a supported duration in {current!r}"
+        )
+
+def configure_video_duration(page, duration):
+    if duration not in {4, 6, 8, 10}:
+        raise ValueError(f"Unsupported duration: {duration}")
+
+    # Follow the proven duration_poc.py interaction.
+    settings = page.locator('button[aria-label="Settings trigger"]')
+    if settings.count() != 1:
+        raise RuntimeError("Could not find Flow settings button.")
+
+    option = page.get_by_role(
+        "radio", name=f"{duration}s", exact=True
+    )
+
+    if not option.is_visible():
+        settings.click()
+        page.wait_for_timeout(300)
+
+    option = page.get_by_role(
+        "radio", name=f"{duration}s", exact=True
+    )
+
+    if option.count() != 1:
+        raise RuntimeError(
+            f"Expected one radio option for {duration}s; "
+            f"found {option.count()}."
+        )
+
+    option.click()
+    page.wait_for_timeout(300)
+
+    current = settings.inner_text()
+    if f"{duration}s" not in current:
+        raise RuntimeError(
+            f"Selected {duration}s but Flow settings show {current!r}."
+        )
+
+    check_video_settings(page, duration)
 
 
 def save_video(page, video, number):
@@ -306,6 +397,7 @@ def run_batch(prompts, mode):
         for index, item in enumerate(prompts):
             number = item["number"]
             prompt = item["prompt"]
+            duration = item.get("duration_seconds", 4)
             suffix = "mp4" if is_video else "jpg"
             filename = f"Shot_{number:03d}.{suffix}"
             output = output_dir / filename
@@ -325,17 +417,24 @@ def run_batch(prompts, mode):
                         page.locator(
                             'div.ProseMirror[contenteditable="true"]'
                         ).first.wait_for(timeout=30000)
-                        check_video_settings(page)
+                    configure_video_duration(page, duration)
 
                     old = signatures(page, "flow-video-tile")
                     attach_image(page, number)
                 else:
                     old = signatures(page, "flow-image-tile", image=True)
 
+                print("PROMPT: locating editor", flush=True)
                 editor = page.locator(
                     'div.ProseMirror[contenteditable="true"]'
                 ).first
-                editor.fill(prompt)
+                editor.wait_for(state="visible", timeout=10000)
+                print(
+                    f"PROMPT: filling editor ({len(prompt)} characters)",
+                    flush=True,
+                )
+                editor.fill(prompt, timeout=15000)
+                print("PROMPT: editor filled", flush=True)
 
                 generate = page.get_by_role(
                     "button", name="Start generation"
@@ -393,8 +492,12 @@ def main():
         success = True
         for path in (IMAGE_PROMPTS, VIDEO_PROMPTS):
             try:
-                prompts = read_prompts(path)
-                print(f"OK: {path.name}: {len(prompts)} sequential prompts.")
+                prompts = (
+                    read_video_scenes(path)
+                    if path == VIDEO_PROMPTS
+                    else read_prompts(path)
+                )
+                print(f"OK: {path.name}: {len(prompts)} validated prompts.")
             except Exception as exc:
                 success = False
                 print(f"ERROR: {path.name}: {exc}")
@@ -422,8 +525,15 @@ def main():
         print("Invalid choice.")
         return
 
-    prompts = read_prompts(path)
+    prompts = (
+        read_video_scenes(path) if mode == "video"
+        else read_prompts(path)
+    )
     print(f"\nValidated {len(prompts)} prompts in {path.name}.")
+    if mode == "video":
+        print("Durations: " + ", ".join(
+            f"Shot {p['number']}={p['duration_seconds']}s" for p in prompts
+        ))
     print(f"Output directory: {IMAGE_DIR if mode == 'image' else VIDEO_DIR}")
 
     if mode == "image":
