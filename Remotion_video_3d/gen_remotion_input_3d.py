@@ -1,233 +1,232 @@
-import os
-import sys
+#!/usr/bin/env python3
+
+import argparse
 import json
+import math
 import shutil
-import glob
-import re
 import subprocess
-import difflib
-from faster_whisper import WhisperModel
+import sys
+import tempfile
+from pathlib import Path
 
-PROJECT_ROOT = "/home/nilesh/Remotion_video_3d"
-PUBLIC_DIR = os.path.join(PROJECT_ROOT, "public")
 
-def prepare_assets(source_dir):
-    print(f"Scanning source directory: {source_dir}")
-    os.makedirs(PUBLIC_DIR, exist_ok=True)
-    
-    txt_files = glob.glob(os.path.join(source_dir, "*.txt"))
-    if not txt_files:
-        print(f"❌ Error: No .txt file found in {source_dir}")
-        sys.exit(1)
-    scene_text_path = os.path.join(PROJECT_ROOT, "scenes.txt")
-    shutil.copy2(txt_files[0], scene_text_path)
-    print(f"✅ Copied script: {os.path.basename(txt_files[0])} -> scenes.txt")
+PROJECT_DIR = Path(__file__).resolve().parent
 
-    mp3_files = glob.glob(os.path.join(source_dir, "*.mp3"))
-    if not mp3_files:
-        print(f"❌ Error: No .mp3 file found in {source_dir}")
-        sys.exit(1)
-    audio_path = os.path.join(PUBLIC_DIR, "voice_over.mp3")
-    shutil.copy2(mp3_files[0], audio_path)
-    print(f"✅ Copied audio: {os.path.basename(mp3_files[0])} -> public/voice_over.mp3")
 
-    mp4_files = glob.glob(os.path.join(source_dir, "*.mp4"))
-    if not mp4_files:
-        print(f"❌ Error: No .mp4 files found in {source_dir}")
-        sys.exit(1)
-    
-    mp4_files.sort(key=lambda f: os.path.basename(f))
-    
-    # Check for existing animations in public/
-    existing_scenes = glob.glob(os.path.join(PUBLIC_DIR, "Scene*.mp4"))
-    copy_animations = True
-    
-    if existing_scenes:
-        print(f"\n⚠️  Found {len(existing_scenes)} animation files already in the public/ folder.")
-        ans = input("Do you want to overwrite them with files from the main source? (y/n): ")
-        if ans.strip().lower() != 'y':
-            copy_animations = False
-            print("⏩ Skipping animation file copy. Using existing files in public/.")
-            
-    if copy_animations:
-        print("Copying and renaming video files...")
-        for file_path in mp4_files:
-            filename = os.path.basename(file_path)
-            match = re.match(r'^(\d+)_', filename)
-            if match:
-                scene_num = int(match.group(1))
-                new_filename = f"Scene{str(scene_num).zfill(2)}.mp4"
-                dest_path = os.path.join(PUBLIC_DIR, new_filename)
-                shutil.copy2(file_path, dest_path)
-                print(f"   -> Copied {new_filename}")
-            
-    return audio_path, scene_text_path
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Generate a Remotion manifest from scene alignment JSON and MP4 files."
+    )
+    parser.add_argument(
+        "--alignment",
+        default="public/scene_alignment.json",
+        help="Path to the existing scene alignment JSON.",
+    )
+    parser.add_argument(
+        "--video-dir",
+        default="../flow-automation/videos",
+        help="Directory containing Shot_001.mp4, Shot_002.mp4, etc.",
+    )
+    parser.add_argument(
+        "--output",
+        default=str(PROJECT_DIR / "src" / "remotion_manifest.json"),
+        help="Output manifest path.",
+    )
+    parser.add_argument(
+        "--video-pattern",
+        default="Shot_{scene_id:03d}.mp4",
+        help="Input video filename pattern.",
+    )
+    parser.add_argument(
+        "--no-copy-videos",
+        action="store_true",
+        help="Do not stage clips as public/Scene01.mp4, Scene02.mp4, etc. "
+             "(Remotion needs them there, so only use this if already staged.)",
+    )
+    return parser.parse_args()
 
-def get_video_duration(filepath):
+
+def get_video_duration(path):
+    result = subprocess.run(
+        [
+            "ffprobe",
+            "-v", "error",
+            "-show_entries", "format=duration",
+            "-of", "default=noprint_wrappers=1:nokey=1",
+            str(path),
+        ],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+
     try:
-        result = subprocess.run(
-            ["ffprobe", "-v", "error", "-show_entries",
-             "format=duration", "-of",
-             "default=noprint_wrappers=1:nokey=1", filepath],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True,
-            check=True
+        duration = float(result.stdout.strip())
+    except ValueError as exc:
+        raise ValueError(f"Could not read media duration: {path}") from exc
+
+    if not math.isfinite(duration) or duration <= 0:
+        raise ValueError(f"Invalid media duration for {path}: {duration}")
+
+    return duration
+
+
+def main():
+    args = parse_args()
+
+    alignment_path = Path(args.alignment).expanduser().resolve()
+    video_dir = Path(args.video_dir).expanduser().resolve()
+    output_path = Path(args.output).expanduser().resolve()
+    public_dir = PROJECT_DIR / "public"
+
+    if not alignment_path.is_file():
+        raise FileNotFoundError(f"Alignment JSON not found: {alignment_path}")
+
+    if not video_dir.is_dir():
+        raise NotADirectoryError(f"Video directory not found: {video_dir}")
+
+    if shutil.which("ffprobe") is None:
+        raise RuntimeError("ffprobe is not installed or is not on PATH.")
+
+    with alignment_path.open("r", encoding="utf-8") as file:
+        alignment = json.load(file)
+
+    scenes = alignment.get("scenes")
+    if not isinstance(scenes, list) or not scenes:
+        raise ValueError("Alignment JSON must contain a non-empty 'scenes' list.")
+
+    expected_count = alignment.get("total_scenes")
+    if expected_count is not None and expected_count != len(scenes):
+        raise ValueError(
+            f"total_scenes is {expected_count}, but found {len(scenes)} scenes."
         )
-        return float(result.stdout.strip())
-    except Exception as e:
-        print(f"Warning: Could not read duration for {filepath}. Defaulting to 6.0s")
-        return 6.0
 
-def parse_scenes_text(filepath):
-    with open(filepath, 'r', encoding='utf-8') as f:
-        text = f.read().lstrip('\ufeff').strip()
-        
-    scenes = []
-    pattern = re.compile(r'^(?:Scene\s*)?(\d+)[\.\:\-]?\s+(.*?)(?=^(?:Scene\s*)?\d+[\.\:\-]?\s+|\Z)', re.DOTALL | re.IGNORECASE | re.MULTILINE)
-    matches = pattern.findall(text)
-    
-    if matches:
-        for match in matches:
-            scenes.append({"scene_id": int(match[0]), "text": match[1].strip()})
-    else:
-        lines = [l.strip() for l in text.split('\n') if l.strip()]
-        for i, line in enumerate(lines):
-            scenes.append({"scene_id": i+1, "text": line})
-            
-    return scenes
+    manifest = []
+    source_videos = []
+    seen_ids = set()
 
-def clean_word(w):
-    return re.sub(r'[^a-z0-9]', '', w.lower())
+    print(f"Alignment: {alignment_path}")
+    print(f"Video directory: {video_dir}")
+    print(f"Scenes to process: {len(scenes)}")
+    print()
 
-def generate_remotion_manifest(audio_path, scene_text_path, output_json_path):
-    print("\n==========================================")
-    print("Running Global Acoustic Alignment (Faster-Whisper)")
-    print("==========================================")
-    
-    scenes = parse_scenes_text(scene_text_path)
-    if not scenes:
-        print("❌ Error: Could not parse any text from scenes.txt")
-        sys.exit(1)
+    for index, scene in enumerate(scenes, start=1):
+        if not isinstance(scene, dict):
+            raise ValueError(f"Scene {index} is not a JSON object.")
 
-    print("Loading AI Model into RAM...")
-    model = WhisperModel("base", device="cpu", compute_type="int8")
-    
-    print("Transcribing and extracting frame-perfect word timestamps...")
-    segments, _ = model.transcribe(audio_path, beam_size=5, word_timestamps=True, language="en")
-    
-    whisper_words = []
-    for segment in segments:
-        for word in segment.words:
-            cleaned = clean_word(word.word)
-            if cleaned:
-                whisper_words.append({
-                    "clean": cleaned,
-                    "start": word.start,
-                    "end": word.end
-                })
-
-    print("Mapping transcript globally to script scenes...")
-    
-    s_words = []
-    s_word_to_scene = []
-    for scene in scenes:
-        words = [clean_word(w) for w in scene['text'].split() if clean_word(w)]
-        for w in words:
-            s_words.append(w)
-            s_word_to_scene.append(scene['scene_id'])
-
-    w_words = [w['clean'] for w in whisper_words]
-    
-    w_scene_assignments = [-1] * len(w_words)
-    sm = difflib.SequenceMatcher(None, w_words, s_words)
-    
-    for block in sm.get_matching_blocks():
-        for i in range(block.size):
-            w_idx = block.a + i
-            s_idx = block.b + i
-            w_scene_assignments[w_idx] = s_word_to_scene[s_idx]
-            
-    for i in range(len(w_scene_assignments)):
-        if w_scene_assignments[i] == -1:
-            left_scene, right_scene = -1, -1
-            left_dist, right_dist = 9999, 9999
-            
-            for j in range(i-1, -1, -1):
-                if w_scene_assignments[j] != -1:
-                    left_scene = w_scene_assignments[j]
-                    left_dist = i - j
-                    break
-                    
-            for j in range(i+1, len(w_scene_assignments)):
-                if w_scene_assignments[j] != -1:
-                    right_scene = w_scene_assignments[j]
-                    right_dist = j - i
-                    break
-                    
-            if left_scene != -1 and right_scene != -1:
-                w_scene_assignments[i] = left_scene if left_dist <= right_dist else right_scene
-            elif left_scene != -1:
-                w_scene_assignments[i] = left_scene
-            elif right_scene != -1:
-                w_scene_assignments[i] = right_scene
-            else:
-                w_scene_assignments[i] = scenes[0]['scene_id']
-
-    scene_times = {}
-    for i, w in enumerate(whisper_words):
-        sid = w_scene_assignments[i]
-        if sid not in scene_times:
-            scene_times[sid] = {'start': w['start'], 'end': w['end']}
-        else:
-            scene_times[sid]['end'] = w['end']
-            
-    for idx, scene in enumerate(scenes):
-        sid = scene['scene_id']
-        if sid in scene_times:
-            scene['startSec'] = scene_times[sid]['start']
-            scene['endSec'] = scene_times[sid]['end']
-        else:
-            scene['startSec'] = scenes[idx-1]['endSec'] if idx > 0 else 0.0
-            scene['endSec'] = scene['startSec'] + 2.0
-            
-    for i in range(len(scenes) - 1):
-        midpoint = (scenes[i]['endSec'] + scenes[i+1]['startSec']) / 2.0
-        scenes[i]['endSec'] = round(midpoint, 2)
-        scenes[i+1]['startSec'] = round(midpoint, 2)
-        
-    for scene in scenes:
-        scene['durationSec'] = round(scene['endSec'] - scene['startSec'], 2)
-        
-    print("\nProbing original video lengths for slow-motion math...")
-    for scene in scenes:
         scene_id = scene.get("scene_id")
-        video_filename = f"Scene{str(scene_id).zfill(2)}.mp4"
-        video_path = os.path.join(PUBLIC_DIR, video_filename)
-        
-        if os.path.exists(video_path):
-            scene["videoDurationSec"] = get_video_duration(video_path)
-        else:
-            scene["videoDurationSec"] = 6.0
-            
-    os.makedirs(os.path.dirname(os.path.abspath(output_json_path)), exist_ok=True)
-    with open(output_json_path, "w", encoding="utf-8") as json_file:
-        json.dump(scenes, json_file, indent=4, ensure_ascii=False)
-        
-    print(f"\n✅ Success! Frame-perfect manifest saved to: {output_json_path}")
-    print(f"Total scenes mapped: {len(scenes)}")
+        if isinstance(scene_id, bool) or not isinstance(scene_id, int):
+            raise ValueError(
+                f"Scene {index} must have an integer scene_id; got {scene_id!r}."
+            )
+
+        if scene_id != index:
+            raise ValueError(
+                f"Expected scene_id {index}, but found {scene_id}. "
+                "Scenes must be numbered consecutively from 1."
+            )
+
+        if scene_id in seen_ids:
+            raise ValueError(f"Duplicate scene_id: {scene_id}")
+        seen_ids.add(scene_id)
+
+        start = scene.get("startSec")
+        end = scene.get("endSec")
+        text = scene.get("text")
+
+        if (
+            isinstance(start, bool)
+            or not isinstance(start, (int, float))
+            or isinstance(end, bool)
+            or not isinstance(end, (int, float))
+            or not math.isfinite(start)
+            or not math.isfinite(end)
+            or end <= start
+        ):
+            raise ValueError(
+                f"Scene {scene_id} has invalid startSec/endSec: {start}, {end}"
+            )
+
+        if not isinstance(text, str):
+            raise ValueError(f"Scene {scene_id} is missing its text string.")
+
+        # Same rounding as the original script (2 decimals) so output matches.
+        duration = round(end - start, 2)
+
+        video_path = (
+            video_dir / args.video_pattern.format(scene_id=scene_id)
+        ).resolve()
+
+        if not video_path.is_file():
+            raise FileNotFoundError(
+                f"Missing video for scene {scene_id}: {video_path}"
+            )
+
+        video_duration = get_video_duration(video_path)
+
+        # Emit exactly the same keys as the original manifest.
+        manifest.append(
+            {
+                "scene_id": scene_id,
+                "text": text,
+                "startSec": start,
+                "endSec": end,
+                "durationSec": duration,
+                "videoDurationSec": video_duration,
+            }
+        )
+        source_videos.append((scene_id, video_path))
+
+        print(
+            f"Scene {scene_id:02d}/{len(scenes):02d}: "
+            f"timeline={duration:.2f}s, video={video_duration:.3f}s"
+        )
+
+    # Only touch public/ after all inputs have been validated.
+    public_dir.mkdir(parents=True, exist_ok=True)
+
+    if not args.no_copy_videos:
+        for scene_id, source in source_videos:
+            destination = public_dir / f"Scene{scene_id:02d}.mp4"
+            if source.resolve() == destination.resolve():
+                continue
+            shutil.copy2(source, destination)
+        print(f"Copied {len(source_videos)} clips -> public/Scene01.mp4 ... "
+              f"Scene{len(source_videos):02d}.mp4")
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    # Write atomically so an interrupted write doesn't leave a partial manifest.
+    temporary_path = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=output_path.parent,
+            prefix=f".{output_path.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as file:
+            temporary_path = Path(file.name)
+            json.dump(manifest, file, indent=4, ensure_ascii=False)
+            file.write("\n")
+
+        temporary_path.chmod(0o644)
+        temporary_path.replace(output_path)
+    finally:
+        if temporary_path is not None and temporary_path.exists():
+            temporary_path.unlink()
+
+    print()
+    print("SUCCESS")
+    print(f"Scenes in manifest: {len(manifest)}")
+    print(f"Manifest written to: {output_path}")
+
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python3 gen_remotion_input_3d.py <path_to_raw_asset_folder> [output.json]")
+    try:
+        main()
+    except (OSError, ValueError, RuntimeError, subprocess.CalledProcessError,
+            json.JSONDecodeError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
         sys.exit(1)
-        
-    RAW_ASSET_DIR = sys.argv[1]
-    OUTPUT_JSON = sys.argv[2] if len(sys.argv) >= 3 else os.path.join(PROJECT_ROOT, "src", "remotion_manifest.json")
-        
-    print("==========================================")
-    print("Ingesting Files and Building Manifest")
-    print("==========================================")
-    
-    final_audio, final_script = prepare_assets(RAW_ASSET_DIR)
-    generate_remotion_manifest(final_audio, final_script, OUTPUT_JSON)
