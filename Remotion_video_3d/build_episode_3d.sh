@@ -25,33 +25,52 @@ echo ""
 # --- Step 1: Generate JSON Manifest ---
 echo "Step 1: Manifest Generation"
 
+generate_manifest() {
+  echo ""
+  read -p "Alignment JSON [public/scene_alignment.json]: " ALIGN_PATH
+  ALIGN_PATH=${ALIGN_PATH:-public/scene_alignment.json}
+  read -p "Folder with Shot_001.mp4, ... [../flow-automation/videos]: " VIDEO_DIR
+  VIDEO_DIR=${VIDEO_DIR:-../flow-automation/videos}
+
+  echo "Generating JSON Manifest..."
+  if ! python3 gen_remotion_input_3d.py \
+      --alignment "$ALIGN_PATH" \
+      --video-dir "$VIDEO_DIR" \
+      --output src/remotion_manifest.json; then
+    echo "❌ Error: Python script failed."
+    exit 1
+  fi
+}
+
 if [ -f "src/remotion_manifest.json" ]; then
   read -p "A manifest file already exists. Do you want to generate a NEW one? (y/n): " REGEN_MANIFEST
   if [[ "$REGEN_MANIFEST" =~ ^[Yy]$ ]]; then
-    echo ""
-    read -p "Enter the full path to your raw 3D assets folder: " ASSET_DIR
-    echo "Generating new JSON Manifest..."
-    if ! python3 gen_remotion_input_3d.py "$ASSET_DIR" src/remotion_manifest.json; then
-      echo "❌ Error: Python script failed."
-      exit 1
-    fi
+    generate_manifest
   else
     echo "Skipping manifest generation, using existing file."
   fi
 else
-  echo ""
-  read -p "Enter the full path to your raw 3D assets folder: " ASSET_DIR
-  echo "Generating JSON Manifest for the first time..."
-  if ! python3 gen_remotion_input_3d.py "$ASSET_DIR" src/remotion_manifest.json; then
-    echo "❌ Error: Python script failed."
-    exit 1
-  fi
+  generate_manifest
 fi
 
 if [ ! -f "src/remotion_manifest.json" ]; then
   echo "❌ Error: 'src/remotion_manifest.json' was not generated."
   exit 1
 fi
+
+# --- Voice-over check (a longer MP3 is fine; the final mux uses it only up to the manifest end) ---
+if [ ! -f "public/voice_over.mp3" ]; then
+  echo "❌ Error: public/voice_over.mp3 not found. Copy this episode's narration there first."
+  exit 1
+fi
+AUDIO_SEC=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 public/voice_over.mp3)
+MANIFEST_END=$(jq '.[-1].endSec' src/remotion_manifest.json)
+if [ "$(echo "$AUDIO_SEC < $MANIFEST_END - 0.5" | bc)" -eq 1 ]; then
+  echo "❌ Error: public/voice_over.mp3 is ${AUDIO_SEC}s but the manifest needs ${MANIFEST_END}s."
+  echo "   The narration is shorter than the timeline."
+  exit 1
+fi
+echo "✅ Voice-over OK (${AUDIO_SEC}s). Only the first ${MANIFEST_END}s will be used; the rest is dropped."
 
 # --- Step 2: Calculate frame count dynamically ---
 echo ""
@@ -172,12 +191,12 @@ fi
 
 echo "Step 7: Multiplexing perfectly synced master audio..."
 if [ "$BG_PROPS" == '{"hasBackgroundMusic":true}' ]; then
-  if ! ffmpeg -y -i out/stitched_temp.mp4 -i public/voice_over.mp3 -i public/background_music.mp3 -filter_complex "[0:a]volume=3.0[a0];[1:a]volume=3.0[a1];[2:a]volume=0.3[bg];[a0][a1][bg]amix=inputs=3:duration=first[a]" -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k -shortest out/Final_YourTechLab_Episode.mp4; then
+  if ! ffmpeg -y -i out/stitched_temp.mp4 -t "$MANIFEST_END" -i public/voice_over.mp3 -i public/background_music.mp3 -filter_complex "[0:a]volume=3.0[a0];[1:a]volume=3.0[a1];[2:a]volume=0.3[bg];[a0][a1][bg]amix=inputs=3:duration=first[a]" -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k -shortest out/Final_YourTechLab_Episode.mp4; then
      echo "❌ Error: Audio sync failed."
      exit 1
   fi
 else
-  if ! ffmpeg -y -i out/stitched_temp.mp4 -i public/voice_over.mp3 -filter_complex "[0:a]volume=2.0[a0];[1:a]volume=2.0[a1];[a0][a1]amix=inputs=2:duration=first[a]" -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k -shortest out/Final_YourTechLab_Episode.mp4; then
+  if ! ffmpeg -y -i out/stitched_temp.mp4 -t "$MANIFEST_END" -i public/voice_over.mp3 -filter_complex "[0:a]volume=2.0[a0];[1:a]volume=2.0[a1];[a0][a1]amix=inputs=2:duration=first[a]" -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k -shortest out/Final_YourTechLab_Episode.mp4; then
      echo "❌ Error: Audio sync failed."
      exit 1
   fi
