@@ -147,10 +147,14 @@ def main():
         temp_output = destination.with_name(f".{destination.stem}.tmp.mp4")
 
         vf = (
-            f"setpts={pts_factor:.12f}*PTS,"
+            f"setpts={pts_factor:.12f}*(PTS-STARTPTS),"
             f"fps={args.fps},"
+            # Retiming plus frame-rate conversion can leave the final frame
+            # just short of the target boundary. Clone the final frame if
+            # needed, then enforce the exact frame count and constant PTS.
+            "tpad=stop_mode=clone:stop_duration=1,"
             f"trim=end_frame={target_frames},"
-            "setpts=PTS-STARTPTS,"
+            f"setpts=N/({args.fps}*TB),"
             f"scale={args.width}:{args.height}:force_original_aspect_ratio=increase,"
             f"crop={args.width}:{args.height},"
             "setsar=1"
