@@ -42,7 +42,13 @@ def parse_args():
     parser.add_argument(
         "--output-dir",
         default=str(PROJECT_DIR / "out" / "vn_clips"),
-        help="Separate output folder for VN-ready clips.",
+        help="Final output folder on the SD card for VN-ready clips.",
+    )
+    parser.add_argument(
+        "--temp-dir",
+        default="/dev/shm/tech_youtube_vn_clips",
+        help="Temporary processing folder (default: /dev/shm/tech_youtube_vn_clips). "
+             "Encoded clips are validated in RAM, then copied to --output-dir.",
     )
     parser.add_argument("--fps", type=positive_int, default=30)
     parser.add_argument("--width", type=positive_int, default=1920)
@@ -83,6 +89,7 @@ def main():
     manifest_path = Path(args.manifest).expanduser().resolve()
     video_dir = Path(args.video_dir).expanduser().resolve()
     output_dir = Path(args.output_dir).expanduser().resolve()
+    temp_dir = Path(args.temp_dir).expanduser().resolve()
 
     for command in ("ffmpeg", "ffprobe"):
         if shutil.which(command) is None:
@@ -132,10 +139,13 @@ def main():
         )
 
     output_dir.mkdir(parents=True, exist_ok=True)
+    temp_dir.mkdir(parents=True, exist_ok=True)
     print(f"Manifest: {manifest_path}")
     print(f"Source clips: {video_dir}")
-    print(f"VN-ready clips: {output_dir}")
+    print(f"RAM processing folder: {temp_dir}")
+    print(f"Final VN-ready clips on SD card: {output_dir}")
     print(f"Scenes: {len(jobs)} | output: {args.width}x{args.height} at {args.fps} fps")
+    print("Workflow: encode and validate in RAM, then copy each clip to the SD card.")
     print("Audio handling: disabled (video-only). No concatenation.\n")
 
     total_frames = 0
@@ -144,7 +154,9 @@ def main():
         target_frames = max(1, int(math.floor(target_sec * args.fps + 0.5)))
         exact_target_sec = target_frames / args.fps
         pts_factor = exact_target_sec / source_sec
-        temp_output = destination.with_name(f".{destination.stem}.tmp.mp4")
+        # FFmpeg writes to RAM. Only a validated clip is copied to the SD card.
+        ram_output = temp_dir / f".Scene_{scene_id:03d}.tmp.mp4"
+        sd_temp_output = destination.with_name(f".{destination.stem}.copy.tmp.mp4")
 
         vf = (
             f"setpts={pts_factor:.12f}*(PTS-STARTPTS),"
@@ -171,24 +183,37 @@ def main():
             "-crf", str(args.crf),
             "-pix_fmt", "yuv420p",
             "-movflags", "+faststart",
-            str(temp_output),
+            str(ram_output),
         ]
 
         try:
+            if ram_output.exists():
+                ram_output.unlink()
+            if sd_temp_output.exists():
+                sd_temp_output.unlink()
+
             subprocess.run(command, check=True)
-            # Confirm the encoded output duration before publishing it.
-            encoded_sec = run_probe(temp_output)
+            # Confirm the RAM-encoded output duration before copying it to SD.
+            encoded_sec = run_probe(ram_output)
             tolerance = 1.01 / args.fps
             if abs(encoded_sec - exact_target_sec) > tolerance:
                 raise RuntimeError(
                     f"Scene {scene_id} output duration is {encoded_sec:.3f}s; "
                     f"expected about {exact_target_sec:.3f}s."
                 )
-            temp_output.replace(destination)
+
+            # Copy only a successfully validated clip to the SD card.
+            shutil.copy2(ram_output, sd_temp_output)
+            sd_temp_output.replace(destination)
         except Exception:
-            if temp_output.exists():
-                temp_output.unlink()
+            for temporary_path in (ram_output, sd_temp_output):
+                if temporary_path.exists():
+                    temporary_path.unlink()
             raise
+        finally:
+            # Process one scene at a time to keep RAM usage bounded.
+            if ram_output.exists():
+                ram_output.unlink()
 
         total_frames += target_frames
         speed = source_sec / exact_target_sec
@@ -199,7 +224,8 @@ def main():
         )
 
     print("\\nSUCCESS")
-    print(f"Prepared {len(jobs)} individual clips in: {output_dir}")
+    print(f"Prepared {len(jobs)} individual clips on the SD card: {output_dir}")
+    print(f"RAM temporary files were removed from: {temp_dir}")
     print(f"Approximate combined timeline: {total_frames / args.fps:.3f}s")
     print("Import the Scene_001.mp4, Scene_002.mp4, ... clips into VN in numerical order.")
     print("Add voice-over/music and make final edits in VN Editor.")
