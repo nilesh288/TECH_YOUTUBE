@@ -1,3 +1,4 @@
+
 from pathlib import Path
 import json
 import random
@@ -9,15 +10,26 @@ from playwright.sync_api import sync_playwright
 
 BASE = Path(__file__).resolve().parent
 IMAGE_PROMPTS = BASE / "image_prompt.txt"
-VIDEO_PROMPTS = BASE / "video_prompt.json"
+VIDEO_PROMPTS = BASE / "final_video_prompt.json"
+ALIGNMENT_FILE = BASE / "scene_alignment.json"
+VIDEO_PROMPTS_SOURCE = BASE / "video_prompts.json"
 IMAGE_DIR = BASE / "downloads"
-VIDEO_DIR = BASE / ("duration_poc_videos" if "--duration-poc" in sys.argv else "videos")
+VIDEO_DIR = BASE / (
+    "duration_poc_videos" if "--duration-poc" in sys.argv else "videos"
+)
 
 IMAGE_DIR.mkdir(parents=True, exist_ok=True)
 VIDEO_DIR.mkdir(parents=True, exist_ok=True)
 
 IMAGE_TIMEOUT = 180
 VIDEO_TIMEOUT = 360
+
+PROMPT_FIELDS = (
+    ("character_action", "Character Action"),
+    ("camera_motion", "Camera Motion"),
+    ("environment_dynamics", "Environment Dynamics"),
+    ("technical_settings", "Technical Settings"),
+)
 
 
 def read_prompts(path):
@@ -43,7 +55,11 @@ def read_prompts(path):
             raise ValueError(f"Duplicate Shot {number} in {path.name}")
         seen.add(number)
 
-        end = headings[i + 1].start() if i + 1 < len(headings) else len(text)
+        end = (
+            headings[i + 1].start()
+            if i + 1 < len(headings)
+            else len(text)
+        )
         prompt = text[heading.end():end].strip()
 
         if not prompt:
@@ -62,42 +78,295 @@ def read_prompts(path):
     return prompts
 
 
+def choose_flow_duration(alignment_duration):
+    """Map narration duration to a supported, credit-conscious Flow duration."""
+    if alignment_duration <= 5:
+        return 4
+    if alignment_duration <= 7:
+        return 6
+    if alignment_duration <= 10:
+        return 8
+    return 10
+
+
+def load_json_file(path):
+    if not path.exists():
+        raise FileNotFoundError(f"Missing input file: {path}")
+
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise ValueError(
+            f"Invalid JSON in {path.name}: {exc}"
+        ) from exc
+
+
+def get_scene_list(data, label):
+    scenes = data.get("scenes") if isinstance(data, dict) else data
+
+    if not isinstance(scenes, list) or not scenes:
+        raise ValueError(
+            f"{label} must contain a non-empty scenes list."
+        )
+
+    return scenes
+
+
+def get_scene_number(scene, fallback):
+    if not isinstance(scene, dict):
+        raise ValueError(f"Scene {fallback} must be an object.")
+
+    for key in ("scene_number", "sceneNumber", "number"):
+        value = scene.get(key)
+        if type(value) is int and value > 0:
+            return value
+
+    scene_id = scene.get("scene_id")
+    if isinstance(scene_id, str):
+        match = re.search(r"(\d+)$", scene_id)
+        if match:
+            return int(match.group(1))
+
+    return fallback
+
+
+def get_alignment_duration(scene, number):
+    duration = scene.get(
+        "duration_seconds",
+        scene.get("duration")
+    )
+
+    if (
+        isinstance(duration, (int, float))
+        and not isinstance(duration, bool)
+    ):
+        duration = float(duration)
+    else:
+        start = scene.get(
+            "startSec",
+            scene.get("start_seconds", scene.get("start"))
+        )
+        end = scene.get(
+            "endSec",
+            scene.get("end_seconds", scene.get("end"))
+        )
+
+        if (
+            not isinstance(start, (int, float))
+            or not isinstance(end, (int, float))
+        ):
+            raise ValueError(
+                f"Alignment scene {number} needs duration_seconds "
+                "or start/end times."
+            )
+
+        duration = float(end) - float(start)
+
+    if duration <= 0:
+        raise ValueError(
+            f"Alignment scene {number} has invalid duration: {duration}"
+        )
+
+    return duration
+
+
+def build_video_prompt_json():
+    """Combine Whisper scene timing with generated video prompt fields."""
+    alignment_data = load_json_file(ALIGNMENT_FILE)
+    prompt_data = load_json_file(VIDEO_PROMPTS_SOURCE)
+
+    alignment_scenes = get_scene_list(
+        alignment_data, ALIGNMENT_FILE.name
+    )
+    source_scenes = get_scene_list(
+        prompt_data, VIDEO_PROMPTS_SOURCE.name
+    )
+
+    alignment_by_number = {}
+
+    for index, scene in enumerate(alignment_scenes, 1):
+        number = get_scene_number(scene, index)
+
+        if number in alignment_by_number:
+            raise ValueError(
+                f"Duplicate scene {number} in {ALIGNMENT_FILE.name}"
+            )
+
+        alignment_by_number[number] = scene
+
+    prompts_by_number = {}
+
+    for index, scene in enumerate(source_scenes, 1):
+        number = get_scene_number(scene, index)
+
+        if number in prompts_by_number:
+            raise ValueError(
+                f"Duplicate scene {number} in {VIDEO_PROMPTS_SOURCE.name}"
+            )
+
+        prompts_by_number[number] = scene
+
+    alignment_numbers = set(alignment_by_number)
+    prompt_numbers = set(prompts_by_number)
+
+    if alignment_numbers != prompt_numbers:
+        missing_prompts = sorted(alignment_numbers - prompt_numbers)
+        extra_prompts = sorted(prompt_numbers - alignment_numbers)
+
+        raise ValueError(
+            "Scene numbers do not match. "
+            f"Missing prompts for scenes: {missing_prompts}; "
+            f"prompts without alignment: {extra_prompts}."
+        )
+
+    final_scenes = []
+
+    for number in sorted(alignment_numbers):
+        alignment = alignment_by_number[number]
+        source = prompts_by_number[number]
+
+        whisper_duration = get_alignment_duration(alignment, number)
+        flow_duration = choose_flow_duration(whisper_duration)
+
+        nested = source.get("video_prompt")
+        fields_source = nested if isinstance(nested, dict) else source
+
+        video_prompt = {}
+
+        for key, _label in PROMPT_FIELDS:
+            value = fields_source.get(key)
+
+            if not isinstance(value, str) or not value.strip():
+                raise ValueError(
+                    f"Scene {number}: missing or empty prompt field "
+                    f"{key!r} in {VIDEO_PROMPTS_SOURCE.name}."
+                )
+
+            video_prompt[key] = value.strip()
+
+        final_scenes.append({
+            "scene_number": number,
+            "duration_seconds": flow_duration,
+            "video_prompt": video_prompt,
+        })
+
+    project = (
+        alignment_data.get("project", "voice_over")
+        if isinstance(alignment_data, dict)
+        else "voice_over"
+    )
+
+    output = {
+        "project": project,
+        "total_scenes": len(final_scenes),
+        "scenes": final_scenes,
+    }
+
+    VIDEO_PROMPTS.write_text(
+        json.dumps(output, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
+    print(f"\nGenerated: {VIDEO_PROMPTS.name}")
+    print(f"Project: {output['project']}")
+    print(f"Total scenes: {output['total_scenes']}")
+
+    for scene in final_scenes:
+        number = scene["scene_number"]
+        whisper_duration = get_alignment_duration(
+            alignment_by_number[number], number
+        )
+        flow_duration = scene["duration_seconds"]
+
+        print(
+            f"\nScene {number}: Whisper {whisper_duration:.2f}s "
+            f"-> Flow {flow_duration}s"
+        )
+
+        for key, label in PROMPT_FIELDS:
+            print(f"  {label}: {scene['video_prompt'][key]}")
+
+    return output
+
 
 def read_video_scenes(path):
-    data = json.loads(path.read_text(encoding="utf-8"))
+    data = load_json_file(path)
     scenes = data.get("scenes") if isinstance(data, dict) else None
 
     if not isinstance(scenes, list) or not scenes:
         raise ValueError("JSON must contain a non-empty scenes list.")
+
     if data.get("total_scenes") != len(scenes):
         raise ValueError("total_scenes does not match scenes length.")
 
     prompts = []
-    for number, scene in enumerate(scenes, 1):
+    seen = set()
+
+    for index, scene in enumerate(scenes, 1):
         if not isinstance(scene, dict):
-            raise ValueError(f"Scene {number} must be an object.")
+            raise ValueError(f"Scene {index} must be an object.")
+
+        number = get_scene_number(scene, index)
+
+        if number in seen:
+            raise ValueError(f"Duplicate scene number {number}.")
+
+        seen.add(number)
 
         duration = scene.get("duration_seconds")
-        prompt = scene.get("video_prompt")
+
         if type(duration) is not int or duration not in {4, 6, 8, 10}:
-            raise ValueError(f"Scene {number}: duration must be 4, 6, 8, or 10.")
-        if not isinstance(prompt, str) or not prompt.strip():
+            raise ValueError(
+                f"Scene {number}: duration must be 4, 6, 8, or 10."
+            )
+
+        prompt = scene.get("video_prompt")
+
+        if isinstance(prompt, dict):
+            parts = []
+
+            for key, label in PROMPT_FIELDS:
+                value = prompt.get(key)
+
+                if not isinstance(value, str) or not value.strip():
+                    raise ValueError(
+                        f"Scene {number}: video_prompt field "
+                        f"{key!r} is empty."
+                    )
+
+                parts.append(f"{label}: {value.strip()}")
+
+            prompt_text = "\n".join(parts)
+
+        elif isinstance(prompt, str):
+            # Backward compatibility with the previous flat-string schema.
+            prompt_text = prompt.strip()
+
+        else:
+            prompt_text = ""
+
+        if not prompt_text:
             raise ValueError(f"Scene {number}: video_prompt is empty.")
 
         prompts.append({
             "number": number,
-            "prompt": prompt.strip(),
+            "prompt": prompt_text,
             "duration_seconds": duration,
         })
+
+    prompts.sort(key=lambda item: item["number"])
     return prompts
+
 
 def connect_flow():
     pw = sync_playwright().start()
+
     try:
         browser = pw.chromium.connect_over_cdp(
             "http://127.0.0.1:9222"
         )
         context = browser.contexts[0]
+
         page = next(
             (p for p in context.pages if "flow.google.com" in p.url),
             None
@@ -109,6 +378,7 @@ def connect_flow():
             )
 
         return pw, page
+
     except Exception:
         pw.stop()
         raise
@@ -122,13 +392,18 @@ def tile_signature(element):
     ):
         try:
             children = element.locator(selector)
+
             if children.count() == 0:
                 continue
+
             value = children.first.evaluate(expression, timeout=2000)
+
             if value:
                 return value
+
         except Exception:
             pass
+
     return None
 
 
@@ -138,6 +413,7 @@ def signatures(page, selector, image=False):
 
     for i in range(elements.count()):
         value = tile_signature(elements.nth(i))
+
         if value:
             found.add(value)
 
@@ -160,6 +436,7 @@ def wait_for_new(page, selector, old, timeout, image=False):
         time.sleep(2)
 
     matched = page.locator(selector).count()
+
     raise TimeoutError(
         f"Timed out waiting for a new result tile. "
         f"Selector matches: {matched}. Check Flow before retrying."
@@ -175,13 +452,16 @@ def save_image(page, tile, number):
     item = page.get_by_role("menuitem").filter(
         has_text=re.compile(r"^download\s*Download$", re.I)
     )
+
     if item.count() != 1:
         raise RuntimeError("Could not identify image Download menu.")
+
     item.click()
 
     original = page.get_by_role("menuitem").filter(
         has_text=re.compile(r"1K.*Original size", re.I | re.S)
     )
+
     if original.count() != 1:
         raise RuntimeError("Could not identify 1K Original size.")
 
@@ -202,11 +482,13 @@ def save_image(page, tile, number):
 
 def attach_image(page, number):
     name = f"Shot_{number:03d}.jpg"
+
     toggle = page.locator(
         '[aria-label="Add ingredients to the prompt box"]'
     )
 
     print("ATTACH: locating ingredients button", flush=True)
+
     if toggle.count() != 1:
         raise RuntimeError("Could not find Add ingredients button.")
 
@@ -219,9 +501,11 @@ def attach_image(page, number):
 
     panel = page.locator("flow-add-menu-popover-content")
     search = panel.get_by_role("textbox", name="Search assets")
+
     print(f"ATTACH: searching for {name}", flush=True)
     search.fill(name, timeout=10000)
     page.wait_for_timeout(500)
+
     print("ATTACH: checking search result", flush=True)
 
     asset = panel.get_by_role(
@@ -237,6 +521,7 @@ def attach_image(page, number):
     print("ATTACH: selecting reference image", flush=True)
     asset.first.click(timeout=10000)
     page.wait_for_timeout(300)
+
     print("ATTACH: reference image selected", flush=True)
 
     if toggle.get_attribute("aria-expanded") == "true":
@@ -244,11 +529,9 @@ def attach_image(page, number):
         page.wait_for_timeout(200)
 
 
-
-
-
 def check_video_settings(page, duration=None):
     button = page.locator('button[aria-label="Settings trigger"]')
+
     if button.count() != 1:
         raise RuntimeError("Could not inspect Flow video settings.")
 
@@ -272,12 +555,13 @@ def check_video_settings(page, duration=None):
             f"Could not identify a supported duration in {current!r}"
         )
 
+
 def configure_video_duration(page, duration):
     if duration not in {4, 6, 8, 10}:
         raise ValueError(f"Unsupported duration: {duration}")
 
-    # Follow the proven duration_poc.py interaction.
     settings = page.locator('button[aria-label="Settings trigger"]')
+
     if settings.count() != 1:
         raise RuntimeError("Could not find Flow settings button.")
 
@@ -303,6 +587,7 @@ def configure_video_duration(page, duration):
     page.wait_for_timeout(300)
 
     current = settings.inner_text()
+
     if f"{duration}s" not in current:
         raise RuntimeError(
             f"Selected {duration}s but Flow settings show {current!r}."
@@ -356,6 +641,7 @@ def save_video(page, video, number):
 
 def report(label, results, folder):
     print(f"\n{'=' * 48}\n{label} REPORT\n{'=' * 48}")
+
     print(f"Successful: {len(results['ok'])}")
     for name in results["ok"]:
         print(f"  OK      {name}")
@@ -380,8 +666,11 @@ def run_batch(prompts, mode):
         missing = [
             f"Shot_{p['number']:03d}.jpg"
             for p in prompts
-            if not (IMAGE_DIR / f"Shot_{p['number']:03d}.jpg").exists()
+            if not (
+                IMAGE_DIR / f"Shot_{p['number']:03d}.jpg"
+            ).exists()
         ]
+
         if missing:
             raise FileNotFoundError(
                 "Missing local reference images in downloads/: "
@@ -408,6 +697,7 @@ def run_batch(prompts, mode):
                 continue
 
             print(f"\n--- {mode.upper()} {filename} ---")
+
             try:
                 if is_video:
                     # Reload between shots to reset the previous prompt and
@@ -417,28 +707,37 @@ def run_batch(prompts, mode):
                         page.locator(
                             'div.ProseMirror[contenteditable="true"]'
                         ).first.wait_for(timeout=30000)
+
                     configure_video_duration(page, duration)
 
                     old = signatures(page, "flow-video-tile")
                     attach_image(page, number)
+
                 else:
-                    old = signatures(page, "flow-image-tile", image=True)
+                    old = signatures(
+                        page, "flow-image-tile", image=True
+                    )
 
                 print("PROMPT: locating editor", flush=True)
+
                 editor = page.locator(
                     'div.ProseMirror[contenteditable="true"]'
                 ).first
+
                 editor.wait_for(state="visible", timeout=10000)
+
                 print(
                     f"PROMPT: filling editor ({len(prompt)} characters)",
                     flush=True,
                 )
+
                 editor.fill(prompt, timeout=15000)
                 print("PROMPT: editor filled", flush=True)
 
                 generate = page.get_by_role(
                     "button", name="Start generation"
                 )
+
                 if not generate.is_enabled():
                     raise RuntimeError("Generate button is disabled.")
 
@@ -447,10 +746,10 @@ def run_batch(prompts, mode):
 
                 if is_video:
                     result = wait_for_new(
-                        page, "flow-video-tile",
-                        old, VIDEO_TIMEOUT
+                        page, "flow-video-tile", old, VIDEO_TIMEOUT
                     )
                     saved = save_video(page, result, number)
+
                 else:
                     result = wait_for_new(
                         page, "flow-image-tile", old,
@@ -458,27 +757,37 @@ def run_batch(prompts, mode):
                     )
                     saved = save_image(page, result, number)
 
-                print(f"SUCCESS: {saved.name} ({saved.stat().st_size:,} bytes)")
+                print(
+                    f"SUCCESS: {saved.name} "
+                    f"({saved.stat().st_size:,} bytes)"
+                )
                 results["ok"].append(saved.name)
 
             except Exception as exc:
                 message = f"{type(exc).__name__}: {exc}"
                 print(f"FAILED Shot_{number:03d}: {message}")
                 results["fail"].append((number, message))
+
                 print(
-                    "Check Flow manually before retrying. Generation may have "
-                    "completed even if downloading failed."
+                    "Check Flow manually before retrying. Generation may "
+                    "have completed even if downloading failed."
                 )
 
             if index < len(prompts) - 1:
                 remaining = [
                     p for p in prompts[index + 1:]
-                    if not (output_dir / f"Shot_{p['number']:03d}.{suffix}").exists()
+                    if not (
+                        output_dir
+                        / f"Shot_{p['number']:03d}.{suffix}"
+                    ).exists()
                 ]
+
                 if remaining:
                     low, high = (50, 90) if is_video else (20, 30)
                     delay = random.randint(low, high)
-                    print(f"Waiting {delay} seconds before next prompt...")
+                    print(
+                        f"Waiting {delay} seconds before next prompt..."
+                    )
                     time.sleep(delay)
 
     finally:
@@ -490,6 +799,7 @@ def run_batch(prompts, mode):
 def main():
     if "--check" in sys.argv:
         success = True
+
         for path in (IMAGE_PROMPTS, VIDEO_PROMPTS):
             try:
                 prompts = (
@@ -497,7 +807,12 @@ def main():
                     if path == VIDEO_PROMPTS
                     else read_prompts(path)
                 )
-                print(f"OK: {path.name}: {len(prompts)} validated prompts.")
+
+                print(
+                    f"OK: {path.name}: "
+                    f"{len(prompts)} validated prompts."
+                )
+
             except Exception as exc:
                 success = False
                 print(f"ERROR: {path.name}: {exc}")
@@ -511,30 +826,76 @@ def main():
     print("\nGOOGLE FLOW PRODUCTION")
     print("1. Image generation")
     print("2. Video generation")
+
     choice = input("Choose 1 or 2: ").strip()
 
     if choice == "1":
         mode = "image"
         path = IMAGE_PROMPTS
-        print("\nEnsure Google Flow is set to IMAGE generation and 1K output.")
+
+        print(
+            "\nEnsure Google Flow is set to IMAGE generation and 1K output."
+        )
+
     elif choice == "2":
         mode = "video"
         path = VIDEO_PROMPTS
-        print("\nEnsure all reference images are uploaded to this Flow project.")
+
+        if path.exists():
+            answer = input(
+                f"\n{path.name} already exists. Regenerate it from "
+                f"{ALIGNMENT_FILE.name} and "
+                f"{VIDEO_PROMPTS_SOURCE.name}? [y/N]: "
+            ).strip().lower()
+
+            if answer in {"y", "yes"}:
+                build_video_prompt_json()
+            else:
+                print(f"Keeping existing {path.name}.")
+
+        else:
+            print(
+                f"\n{path.name} does not exist; generating it now."
+            )
+            build_video_prompt_json()
+
+        print(
+            "\nEnsure all reference images are uploaded to this Flow project."
+        )
+
+        proceed = input(
+            f"\nGenerate Google Flow videos using {path.name}? [y/N]: "
+        ).strip().lower()
+
+        if proceed not in {"y", "yes"}:
+            print(
+                "Cancelled before video generation. "
+                "No Google Flow credits used."
+            )
+            return
+
     else:
         print("Invalid choice.")
         return
 
     prompts = (
-        read_video_scenes(path) if mode == "video"
+        read_video_scenes(path)
+        if mode == "video"
         else read_prompts(path)
     )
+
     print(f"\nValidated {len(prompts)} prompts in {path.name}.")
+
     if mode == "video":
         print("Durations: " + ", ".join(
-            f"Shot {p['number']}={p['duration_seconds']}s" for p in prompts
+            f"Shot {p['number']}={p['duration_seconds']}s"
+            for p in prompts
         ))
-    print(f"Output directory: {IMAGE_DIR if mode == 'image' else VIDEO_DIR}")
+
+    print(
+        f"Output directory: "
+        f"{IMAGE_DIR if mode == 'image' else VIDEO_DIR}"
+    )
 
     if mode == "image":
         print("Random delay between prompts: 20–30 seconds.")
@@ -543,8 +904,10 @@ def main():
         print("Video settings will be checked before generation.")
 
     confirm = input(
-        "\nThis process uses Google Flow credits. Type YES to continue: "
+        "\nThis process uses Google Flow credits. "
+        "Type YES to continue: "
     )
+
     if confirm.strip() != "YES":
         print("Cancelled. Nothing generated.")
         return

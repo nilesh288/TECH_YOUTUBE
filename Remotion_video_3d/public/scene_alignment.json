@@ -1,0 +1,654 @@
+{
+  "project": "voice_over",
+  "audio_file": "voice_over.mp3",
+  "source_script": "scenes.txt",
+  "detected_language": "en",
+  "total_scenes": 64,
+  "alignment_summary": {
+    "matched_script_words": 1335,
+    "total_script_words": 1380,
+    "match_coverage_percent": 96.7
+  },
+  "scenes": [
+    {
+      "scene_id": 1,
+      "text": "Picture yourself standing entirely alone on the edge of a beautifully lit, modern transit platform on a quiet afternoon.",
+      "startSec": 0.0,
+      "endSec": 7.18,
+      "duration_seconds": 7.18,
+      "matched_script_words": 19,
+      "total_script_words": 19,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 2,
+      "text": "You reach deep into your pocket, pull out a heavy, perfectly smooth steel coin, and carefully place it onto the polished steel rail stretching out into the distance.",
+      "startSec": 7.18,
+      "endSec": 17.21,
+      "duration_seconds": 10.03,
+      "matched_script_words": 28,
+      "total_script_words": 28,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 3,
+      "text": "If you give that coin just the slightest push with your finger, you will watch it glide forward effortlessly along the track.",
+      "startSec": 17.21,
+      "endSec": 24.62,
+      "duration_seconds": 7.41,
+      "matched_script_words": 22,
+      "total_script_words": 22,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 4,
+      "text": "It coasts endlessly with almost zero resistance, completely unlike how quickly an object violently stops when it is dragged across a rough asphalt road.",
+      "startSec": 24.62,
+      "endSec": 35.23,
+      "duration_seconds": 10.61,
+      "matched_script_words": 24,
+      "total_script_words": 24,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 5,
+      "text": "That simple, beautiful motion holds the secret to one of humanity's greatest achievements in transportation.",
+      "startSec": 35.23,
+      "endSec": 42.98,
+      "duration_seconds": 7.75,
+      "matched_script_words": 15,
+      "total_script_words": 15,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 6,
+      "text": "Why does a four hundred ton machine glide effortlessly forward using a fraction of the energy it takes to drive a family car on the highway?",
+      "startSec": 42.98,
+      "endSec": 51.88,
+      "duration_seconds": 8.9,
+      "matched_script_words": 24,
+      "total_script_words": 26,
+      "match_coverage_percent": 92.3
+    },
+    {
+      "scene_id": 7,
+      "text": "How did we engineer the staggering leap from shoveling black coal into explosive boilers, to rocketing at three hundred kilometers per hour under silent electric wires?",
+      "startSec": 51.88,
+      "endSec": 62.49,
+      "duration_seconds": 10.61,
+      "matched_script_words": 24,
+      "total_script_words": 26,
+      "match_coverage_percent": 92.3
+    },
+    {
+      "scene_id": 8,
+      "text": "And why is it that every time you look down at the clock on your wrist, you are actually looking at a direct legacy of the nineteenth century railway?",
+      "startSec": 62.49,
+      "endSec": 71.29,
+      "duration_seconds": 8.8,
+      "matched_script_words": 28,
+      "total_script_words": 29,
+      "match_coverage_percent": 96.6
+    },
+    {
+      "scene_id": 9,
+      "text": "I promise you will never look at a train schedule, or the time on your wrist, the exact same way again.",
+      "startSec": 71.29,
+      "endSec": 78.94,
+      "duration_seconds": 7.65,
+      "matched_script_words": 21,
+      "total_script_words": 21,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 10,
+      "text": "Part One: The Physics of Steel. To answer that first question and understand how a massive, incredibly heavy machine moves so efficiently.",
+      "startSec": 78.94,
+      "endSec": 89.27,
+      "duration_seconds": 10.33,
+      "matched_script_words": 21,
+      "total_script_words": 22,
+      "match_coverage_percent": 95.5
+    },
+    {
+      "scene_id": 11,
+      "text": "you have to look closely at the track beneath it. The foundational physics of the railway all comes down to that single, tiny point of contact.",
+      "startSec": 89.27,
+      "endSec": 98.94,
+      "duration_seconds": 9.67,
+      "matched_script_words": 26,
+      "total_script_words": 26,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 12,
+      "text": "When you place incredibly heavy steel wheels onto solid steel tracks, both surfaces experience near zero deformation under the extreme weight.",
+      "startSec": 98.94,
+      "endSec": 109.46,
+      "duration_seconds": 10.52,
+      "matched_script_words": 21,
+      "total_script_words": 21,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 13,
+      "text": "Because neither the wheel nor the track bends, sags, or squishes, this setup drastically minimizes something engineers call rolling resistance.",
+      "startSec": 109.46,
+      "endSec": 119.47,
+      "duration_seconds": 10.01,
+      "matched_script_words": 20,
+      "total_script_words": 20,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 14,
+      "text": "Rolling resistance is simply the invisible friction force that constantly fights against forward motion. You can easily picture this difference in your everyday life.",
+      "startSec": 119.47,
+      "endSec": 130.38,
+      "duration_seconds": 10.91,
+      "matched_script_words": 24,
+      "total_script_words": 24,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 15,
+      "text": "Imagine pushing a heavy, metal wheeled shopping cart across a highly polished concrete floor. It rolls perfectly.",
+      "startSec": 130.38,
+      "endSec": 139.04,
+      "duration_seconds": 8.66,
+      "matched_script_words": 17,
+      "total_script_words": 17,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 16,
+      "text": "Now imagine trying to push that exact same heavy cart through thick, sticky mud, which perfectly represents how rubber tires behave on asphalt.",
+      "startSec": 139.04,
+      "endSec": 148.98,
+      "duration_seconds": 9.94,
+      "matched_script_words": 23,
+      "total_script_words": 23,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 17,
+      "text": "The numerical difference is astonishing.",
+      "startSec": 148.98,
+      "endSec": 151.63,
+      "duration_seconds": 2.65,
+      "matched_script_words": 5,
+      "total_script_words": 5,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 18,
+      "text": "The coefficient of rolling resistance for steel on steel is a microscopic zero point zero zero one, compared to a massive zero point zero one five for standard car tires.",
+      "startSec": 151.63,
+      "endSec": 163.67,
+      "duration_seconds": 12.04,
+      "matched_script_words": 20,
+      "total_script_words": 30,
+      "match_coverage_percent": 66.7
+    },
+    {
+      "scene_id": 19,
+      "text": "Because of this near perfect physical efficiency, a modern train can move one ton of freight nearly five hundred miles on a single gallon of fuel.",
+      "startSec": 163.67,
+      "endSec": 173.61,
+      "duration_seconds": 9.94,
+      "matched_script_words": 24,
+      "total_script_words": 26,
+      "match_coverage_percent": 92.3
+    },
+    {
+      "scene_id": 20,
+      "text": "But even with that incredible mechanical advantage working in your favor, moving thousands of tons of solid steel still requires massive brute force to get started.",
+      "startSec": 173.61,
+      "endSec": 184.22,
+      "duration_seconds": 10.61,
+      "matched_script_words": 26,
+      "total_script_words": 26,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 21,
+      "text": "You are still fighting the raw laws of physics. Engineers desperately needed to invent a radical new power source to overcome that sheer resting inertia.",
+      "startSec": 184.22,
+      "endSec": 195.36,
+      "duration_seconds": 11.14,
+      "matched_script_words": 25,
+      "total_script_words": 25,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 22,
+      "text": "Part Two: Harnessing the Dragon.",
+      "startSec": 195.36,
+      "endSec": 198.87,
+      "duration_seconds": 3.51,
+      "matched_script_words": 5,
+      "total_script_words": 5,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 23,
+      "text": "To generate the enormous brute force required to push thousands of tons of heavy steel over early rail networks, inventors had to turn to the raw elements of nature.",
+      "startSec": 198.87,
+      "endSec": 209.37,
+      "duration_seconds": 10.5,
+      "matched_script_words": 29,
+      "total_script_words": 29,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 24,
+      "text": "The brilliant resolution to this massive physics problem was the invention of the steam locomotive.",
+      "startSec": 209.37,
+      "endSec": 215.46,
+      "duration_seconds": 6.09,
+      "matched_script_words": 15,
+      "total_script_words": 15,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 25,
+      "text": "By constantly burning immense amounts of black coal, you could boil thousands of gallons of water inside a sealed chamber.",
+      "startSec": 215.46,
+      "endSec": 223.14,
+      "duration_seconds": 7.68,
+      "matched_script_words": 20,
+      "total_script_words": 20,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 26,
+      "text": "This extreme heat creates rapidly expanding steam, and that highly pressurized vapor is used to drive massive mechanical pistons that are linked directly to the steel train wheels.",
+      "startSec": 223.14,
+      "endSec": 235.33,
+      "duration_seconds": 12.19,
+      "matched_script_words": 28,
+      "total_script_words": 28,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 27,
+      "text": "You can easily picture this early engine as a giant whistling tea kettle.",
+      "startSec": 235.33,
+      "endSec": 240.03,
+      "duration_seconds": 4.7,
+      "matched_script_words": 13,
+      "total_script_words": 13,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 28,
+      "text": "But in this specific kettle, the escaping steam is forced to physically push a heavy metal door open before it is allowed to escape into the air.",
+      "startSec": 240.03,
+      "endSec": 248.57,
+      "duration_seconds": 8.54,
+      "matched_script_words": 27,
+      "total_script_words": 27,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 29,
+      "text": "That intense, repetitive pushing action is what turned the wheels and finally got humanity moving along the rails.",
+      "startSec": 248.57,
+      "endSec": 255.79,
+      "duration_seconds": 7.22,
+      "matched_script_words": 18,
+      "total_script_words": 18,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 30,
+      "text": "This incredible breakthrough first proved successful on a historic journey in the year eighteen zero four, forever changing the pace of the world.",
+      "startSec": 255.79,
+      "endSec": 265.57,
+      "duration_seconds": 9.78,
+      "matched_script_words": 20,
+      "total_script_words": 23,
+      "match_coverage_percent": 87.0
+    },
+    {
+      "scene_id": 31,
+      "text": "But relying on steam power is fundamentally messy, incredibly dangerous, and exhausting to maintain.",
+      "startSec": 265.57,
+      "endSec": 272.44,
+      "duration_seconds": 6.87,
+      "matched_script_words": 14,
+      "total_script_words": 14,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 32,
+      "text": "You have to constantly feed solid physical fuel into a blazing firebox just to keep the water continuously boiling.",
+      "startSec": 272.44,
+      "endSec": 280.29,
+      "duration_seconds": 7.85,
+      "matched_script_words": 19,
+      "total_script_words": 19,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 33,
+      "text": "Furthermore, this heavy technology quickly hit a hard physical ceiling for thermal efficiency, a measure of how much fuel energy actually becomes useful work.",
+      "startSec": 280.29,
+      "endSec": 290.85,
+      "duration_seconds": 10.56,
+      "matched_script_words": 24,
+      "total_script_words": 24,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 34,
+      "text": "Even at their absolute physical peak, the very best early steam engines maxed out at roughly six percent thermal efficiency. The engineers knew they needed a much better engine.",
+      "startSec": 290.85,
+      "endSec": 302.4,
+      "duration_seconds": 11.55,
+      "matched_script_words": 27,
+      "total_script_words": 29,
+      "match_coverage_percent": 93.1
+    },
+    {
+      "scene_id": 35,
+      "text": "Part Three: The Diesel Deception. By the nineteen twenties, engineers realized a painful truth about steam engines.",
+      "startSec": 302.4,
+      "endSec": 311.06,
+      "duration_seconds": 8.66,
+      "matched_script_words": 14,
+      "total_script_words": 17,
+      "match_coverage_percent": 82.4
+    },
+    {
+      "scene_id": 36,
+      "text": "Nearly ninety four percent of the energy inside the coal they burned was being completely wasted as heat, smoke, and noise, doing absolutely nothing to move the train forward.",
+      "startSec": 311.06,
+      "endSec": 322.29,
+      "duration_seconds": 11.23,
+      "matched_script_words": 26,
+      "total_script_words": 29,
+      "match_coverage_percent": 89.7
+    },
+    {
+      "scene_id": 37,
+      "text": "Steam trains were simply too terribly inefficient to maintain for the future.",
+      "startSec": 322.29,
+      "endSec": 326.85,
+      "duration_seconds": 4.56,
+      "matched_script_words": 12,
+      "total_script_words": 12,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 38,
+      "text": "But at the exact same time, electrifying a whole continent's thousands of miles of track was just far too expensive to build.",
+      "startSec": 326.85,
+      "endSec": 335.1,
+      "duration_seconds": 8.25,
+      "matched_script_words": 22,
+      "total_script_words": 22,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 39,
+      "text": "I need you to pay close attention here, because understanding this specific mechanical transition is the only way you will grasp how modern trains function today.",
+      "startSec": 335.1,
+      "endSec": 345.07,
+      "duration_seconds": 9.97,
+      "matched_script_words": 26,
+      "total_script_words": 26,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 40,
+      "text": "The brilliant solution was the diesel electric locomotive, which brings us to a mind bending reality.",
+      "startSec": 345.07,
+      "endSec": 352.45,
+      "duration_seconds": 7.38,
+      "matched_script_words": 16,
+      "total_script_words": 16,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 41,
+      "text": "The massive diesel locomotives hauling today's freight are not actually diesel machines at all. Engineers completely severed the mechanical link from the engine to the wheels.",
+      "startSec": 352.45,
+      "endSec": 363.86,
+      "duration_seconds": 11.41,
+      "matched_script_words": 26,
+      "total_script_words": 26,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 42,
+      "text": "The onboard diesel engine simply acts as a mobile power plant turning a massive electrical generator, which then feeds electricity down to specialized traction motors mounted directly on the wheel axles.",
+      "startSec": 363.86,
+      "endSec": 376.46,
+      "duration_seconds": 12.6,
+      "matched_script_words": 31,
+      "total_script_words": 31,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 43,
+      "text": "It is exactly like carrying a portable gas generator in the trunk of a Tesla, using it to constantly charge the battery while you drive down the road.",
+      "startSec": 376.46,
+      "endSec": 385.44,
+      "duration_seconds": 8.98,
+      "matched_script_words": 28,
+      "total_script_words": 28,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 44,
+      "text": "This incredible bridge technology began to take over during the nineteen thirties with the stunning rise of the diesel electric streamliners.",
+      "startSec": 385.44,
+      "endSec": 394.26,
+      "duration_seconds": 8.82,
+      "matched_script_words": 19,
+      "total_script_words": 21,
+      "match_coverage_percent": 90.5
+    },
+    {
+      "scene_id": 45,
+      "text": "Today, these giants house staggering four thousand horsepower generators inside their shells.",
+      "startSec": 394.26,
+      "endSec": 401.1,
+      "duration_seconds": 6.84,
+      "matched_script_words": 10,
+      "total_script_words": 12,
+      "match_coverage_percent": 83.3
+    },
+    {
+      "scene_id": 46,
+      "text": "But you still have to carry hundreds of tons of heavy liquid dead weight in the form of diesel fuel with you everywhere you travel.",
+      "startSec": 401.1,
+      "endSec": 408.71,
+      "duration_seconds": 7.61,
+      "matched_script_words": 25,
+      "total_script_words": 25,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 47,
+      "text": "That massive rolling burden severely limits your absolute top passenger speeds.",
+      "startSec": 408.71,
+      "endSec": 415.18,
+      "duration_seconds": 6.47,
+      "matched_script_words": 11,
+      "total_script_words": 11,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 48,
+      "text": "Part Four: Severing the Fuel Line.",
+      "startSec": 415.18,
+      "endSec": 418.71,
+      "duration_seconds": 3.53,
+      "matched_script_words": 5,
+      "total_script_words": 6,
+      "match_coverage_percent": 83.3
+    },
+    {
+      "scene_id": 49,
+      "text": "To achieve true, blistering high speed across the country, trains had to finally lose the immense dead weight of massive onboard fuel tanks and heavy internal power plants.",
+      "startSec": 418.71,
+      "endSec": 429.3,
+      "duration_seconds": 10.59,
+      "matched_script_words": 28,
+      "total_script_words": 28,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 50,
+      "text": "The ultimate resolution to this limiting weight problem is modern high speed rail, perfectly represented by the legendary Japanese Shinkansen.",
+      "startSec": 429.3,
+      "endSec": 438.74,
+      "duration_seconds": 9.44,
+      "matched_script_words": 20,
+      "total_script_words": 20,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 51,
+      "text": "Instead of carrying their fuel with them, engineers figured out how to make the train draw massive electric power directly from overhead catenary wires.",
+      "startSec": 438.74,
+      "endSec": 448.39,
+      "duration_seconds": 9.65,
+      "matched_script_words": 24,
+      "total_script_words": 24,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 52,
+      "text": "These specialized power lines are perfectly suspended above the tracks for the entire length of the journey.",
+      "startSec": 448.39,
+      "endSec": 455.37,
+      "duration_seconds": 6.98,
+      "matched_script_words": 17,
+      "total_script_words": 17,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 53,
+      "text": "By leaving the heavy power plant far behind at a stationary generating facility, the train vehicle itself is allowed to become astonishingly light and incredibly fast.",
+      "startSec": 455.37,
+      "endSec": 466.69,
+      "duration_seconds": 11.32,
+      "matched_script_words": 26,
+      "total_script_words": 26,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 54,
+      "text": "You can easily visualize this entire electrical system by picturing a classic childhood slot car track.",
+      "startSec": 466.69,
+      "endSec": 473.97,
+      "duration_seconds": 7.28,
+      "matched_script_words": 16,
+      "total_script_words": 16,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 55,
+      "text": "On that tiny plastic track, the incredibly fast, lightweight toy vehicle carries no heavy battery of its own, drawing limitless power directly from the electrified grid it rides on.",
+      "startSec": 473.97,
+      "endSec": 487.03,
+      "duration_seconds": 13.06,
+      "matched_script_words": 29,
+      "total_script_words": 29,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 56,
+      "text": "This incredible engineering leap changed human travel forever when the first generation of the Shinkansen launched in the historic year of nineteen sixty four.",
+      "startSec": 487.03,
+      "endSec": 497.38,
+      "duration_seconds": 10.35,
+      "matched_script_words": 21,
+      "total_script_words": 24,
+      "match_coverage_percent": 87.5
+    },
+    {
+      "scene_id": 57,
+      "text": "To constantly push these trains through the air, the overhead lines deliver a staggering twenty five thousand volts of alternating current straight down into the electric motors.",
+      "startSec": 497.38,
+      "endSec": 508.67,
+      "duration_seconds": 11.29,
+      "matched_script_words": 24,
+      "total_script_words": 27,
+      "match_coverage_percent": 88.9
+    },
+    {
+      "scene_id": 58,
+      "text": "Because they are completely unburdened by heavy liquid fuel, these sleek machines can maintain sustained speeds exceeding three hundred kilometers per hour.",
+      "startSec": 508.67,
+      "endSec": 519.37,
+      "duration_seconds": 10.7,
+      "matched_script_words": 20,
+      "total_script_words": 22,
+      "match_coverage_percent": 90.9
+    },
+    {
+      "scene_id": 59,
+      "text": "We finally achieved the absolute pinnacle of human ground transport efficiency.",
+      "startSec": 519.37,
+      "endSec": 524.9,
+      "duration_seconds": 5.53,
+      "matched_script_words": 10,
+      "total_script_words": 11,
+      "match_coverage_percent": 90.9
+    },
+    {
+      "scene_id": 60,
+      "text": "The absolute greatest legacy of the railway is how we organize our very existence. The global time zones we use today were invented entirely by the rail industry.",
+      "startSec": 524.9,
+      "endSec": 536.51,
+      "duration_seconds": 11.61,
+      "matched_script_words": 28,
+      "total_script_words": 28,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 61,
+      "text": "Because fast moving trains traveled so quickly, running a vast network on hundreds of local sun times became incredibly dangerous and impossible to schedule safely.",
+      "startSec": 536.51,
+      "endSec": 547.17,
+      "duration_seconds": 10.66,
+      "matched_script_words": 23,
+      "total_script_words": 25,
+      "match_coverage_percent": 92.0
+    },
+    {
+      "scene_id": 62,
+      "text": "They had to standardize time to avoid catastrophic collisions.",
+      "startSec": 547.17,
+      "endSec": 551.6,
+      "duration_seconds": 4.43,
+      "matched_script_words": 9,
+      "total_script_words": 9,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 63,
+      "text": "So, the next time you stand on a quiet transit platform, feeling the vibration of an approaching high speed train, look down at your modern digital watch.",
+      "startSec": 551.6,
+      "endSec": 562.21,
+      "duration_seconds": 10.61,
+      "matched_script_words": 27,
+      "total_script_words": 27,
+      "match_coverage_percent": 100.0
+    },
+    {
+      "scene_id": 64,
+      "text": "Seeing it arrive at the exact minute scheduled, remember that this perfectly synchronized global time only exists because of the rigid steel rails stretching out underfoot.",
+      "startSec": 562.21,
+      "endSec": 573.00,
+      "duration_seconds": 10.79,
+      "matched_script_words": 26,
+      "total_script_words": 26,
+      "match_coverage_percent": 100.0
+    }
+  ]
+}

@@ -1,0 +1,646 @@
+{
+  "project": "voice_over",
+  "total_scenes": 64,
+  "scenes": [
+    {
+      "scene_number": 1,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The commuter in a dark coat stands still at the platform edge, looking calmly down the track as the distant bullet train approaches.",
+        "camera_motion": "Slow forward tracking dolly gliding smoothly along the platform floor.",
+        "environment_dynamics": "Warm linear LED lights cast steady reflections on polished platform tiles beneath an open glass canopy, with stable twilight lighting and rigid architectural geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 2,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "Fingers carefully settle the machined steel coin upright onto the polished rail crown, gently releasing contact to let it balance independently.",
+        "camera_motion": "Slow forward tracking push along the reflective surface of the rail toward the contact point.",
+        "environment_dynamics": "Crisp specular reflections on the mirror-finish steel rail surface, with steady ambient platform lighting and shallow depth of field maintaining rigid geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 3,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The gloved index finger delivers a gentle, precise tap to the steel disc, sending it gliding forward along the metallic track guides as the hand lifts away.",
+        "camera_motion": "Low-angle forward tracking shot traveling smoothly alongside the gliding disc.",
+        "environment_dynamics": "Cyan linear LED lights produce steady metallic specular streaks along the rails and disc edges, with static studio background depth and rigid geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 4,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "On the left side, the steel disc coasts continuously forward along the metal track; on the right side, the duplicate disc violently chatters to a rapid halt against the coarse asphalt.",
+        "camera_motion": "Steady forward tracking push centered on the dual test beds.",
+        "environment_dynamics": "High-contrast studio lighting reveals sleek specular highlights on the metal rail and gritty surface shadows on the textured asphalt, maintaining rigid mechanical test rig geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 5,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The upright steel coin rolls forward along the crown of the rail with steady gyroscopic balance, coasting smoothly into the distance.",
+        "camera_motion": "Fast forward tracking shot matching the rolling coin at low track level.",
+        "environment_dynamics": "Linear overhead lights create rhythmic streaks across the arched canopy ribs and polished steel rail, maintaining rigid tunnel perspective.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 6,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The compact white car and the massive dark locomotive remain stationary, presenting their dramatic scale comparison under uniform studio lighting.",
+        "camera_motion": "Slow forward tracking push moving at a low angle across the polished studio floor toward the vehicles.",
+        "environment_dynamics": "Overhead softbox lighting panels cast clean geometric reflections across the dark floor, with stable shadows and rigid mechanical vehicle contours.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 7,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "Steam vents continuously from the vintage boiler wheels at the rear, while cyan accent lines along the aerodynamic bullet train nose pulse with steady electrical energy.",
+        "camera_motion": "Slow forward tracking push gliding smoothly alongside the train body toward the sleek modern nose.",
+        "environment_dynamics": "Warm amber firebox lighting blends into cool cyan spotlights through volumetric smoke, with stable floor reflections and rigid industrial hangar trusses.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 8,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The slender second hand sweeps steadily across the dial as the exposed balance wheel oscillates rapidly inside the skeleton aperture.",
+        "camera_motion": "Slow macro forward tracking push toward the center of the watch dial.",
+        "environment_dynamics": "Soft warm key lighting shifts gently across the brushed metallic bezel and curved sapphire crystal, maintaining rigid timepiece geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 9,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "Multiple high-speed trains glide smoothly across the multi-level elevated viaducts, weaving through the complex interchange toward the illuminated central station.",
+        "camera_motion": "Slow elevated forward tracking flight path moving steadily over the curving multi-tier rail network.",
+        "environment_dynamics": "Dusk city skyline lights glow in the distance while architectural station lighting and train headlights cast crisp beams along the concrete tracks, preserving rigid bridge geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 10,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The floating mechanical bearings, housings, and axle caps smoothly collapse inward along the central shaft, locking into a unified rigid wheelset assembly above the rails.",
+        "camera_motion": "Slow forward tracking push gliding diagonally toward the wheelset along an isometric perspective.",
+        "environment_dynamics": "Soft diffuse technical studio lighting casts subtle contact shadows on the neutral grey floor, highlighting machined steel surfaces with rigid CAD-level geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 11,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The heavy steel wheel maintains rigid downward pressure along the rail crown, with imperceptible micro-rotational tension at the exact contact line.",
+        "camera_motion": "Slow forward tracking push moving directly toward the microscopic contact patch between the wheel and rail.",
+        "environment_dynamics": "Dual workshop desk lamps cast intense specular glints across the brushed steel wheel rim and railhead, highlighting rigid non-deforming metal geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 12,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The heavy steel wheel exerts massive downward pressure onto the solid railhead, maintaining an unyielding, non-deforming contact surface with zero structural deflection.",
+        "camera_motion": "Slow forward tracking push gliding alongside the cross-sectional profile toward the contact interface.",
+        "environment_dynamics": "Directional studio key lighting highlights brushed metallic textures along the cut plane and casts subtle contact shadows on the slate-grey floor, preserving rigid 3D geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 13,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The heavy steel wheel rotates smoothly along the rail with minimal rotational friction, maintaining a razor-thin unbending contact line highlighted by the glowing laser.",
+        "camera_motion": "Slow forward tracking push moving parallel to the glowing cyan laser line toward the rotating wheel.",
+        "environment_dynamics": "The luminescent cyan laser strip casts an electric blue sheen along the metallic rail crown, with static test bench equipment and rigid laboratory geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 14,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The mechanical wheel rotates continuously forward as the translucent green momentum arrow and red opposing friction arrows emit a steady diagnostic pulse.",
+        "camera_motion": "Slow forward tracking push gliding diagonally toward the rotating wheel and lower contact vectors.",
+        "environment_dynamics": "Contrasting cool blue and warm amber spotlights illuminate the internal brake gears, casting crisp metallic shadows on the textured track bed with rigid mechanical geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 15,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The metal shopping cart glides effortlessly forward in a straight path, its caster wheels spinning smoothly across the seamless floor surface.",
+        "camera_motion": "Slow forward tracking push gliding at a low angle across the polished concrete floor toward the cart.",
+        "environment_dynamics": "Soft daylight from overhead warehouse skylights casts clean reflections across the mirror-finish concrete floor, preserving rigid structural columns.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 16,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The mud-caked caster wheels struggle against heavy rotational drag, sinking deeper into the thick, wet mud as the loaded cart resists forward movement.",
+        "camera_motion": "Slow ground-level forward tracking push moving steadily toward the caked front caster wheels.",
+        "environment_dynamics": "Overcast daylight creates soft, diffuse reflections on wet mud puddles, with viscous soil displacing around the bogged wheel hubs without architectural warping.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 17,
+      "duration_seconds": 4,
+      "video_prompt": {
+        "character_action": "The balance beam oscillates gently before settling firmly, keeping the left pan depressed under the weight of the solid brass cylinders.",
+        "camera_motion": "Slow forward tracking push moving diagonally toward the weighted brass cylinders on the scale.",
+        "environment_dynamics": "Subtle studio overhead rim lights cast warm golden specular highlights across the brass surfaces and clean geometric shadows on the dark table, preserving rigid room architecture.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 18,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The steel sphere on the left accelerates rapidly down the polished steel track, while the duplicate sphere on the right rolls sluggishly along the high-friction rubber incline beside active LED meters.",
+        "camera_motion": "Slow forward tracking push gliding diagonally toward the inclined testing tracks.",
+        "environment_dynamics": "Diffuse laboratory lighting casts crisp linear reflections along the brushed stainless steel platform, with illuminated green and red digital displays and rigid test rig architecture.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 19,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The heavy freight train glides steadily forward along the curving desert tracks, pulling its mile-long container line with continuous momentum.",
+        "camera_motion": "Slow elevated forward tracking flight path moving smoothly above the winding desert rail corridor.",
+        "environment_dynamics": "Warm golden hour sunlight casts long dramatic shadows across rocky canyon ridges, with subtle atmospheric dust haze and rigid topographical landscape geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 20,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The massive cast-iron locomotive driving wheels remain anchored in heavy resting inertia, with connecting rods locked under static mechanical tension.",
+        "camera_motion": "Slow ground-level forward tracking push gliding alongside the stationary wheel rims.",
+        "environment_dynamics": "Overcast daylight creates soft specular glints on wet steel rails and oily wheel hubs, with distant rail yard wagons shrouded in atmospheric fog.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 21,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The empty vintage rail line stretches motionlessly into the distant mist, conveying silent resting inertia along the weathered timber ties.",
+        "camera_motion": "Slow forward tracking push moving straight down the center line of the tracks.",
+        "environment_dynamics": "Dense cool morning mist drifts slowly between bare silhouette trees, with moisture glistening along damp railheads and ballast gravel.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 22,
+      "duration_seconds": 4,
+      "video_prompt": {
+        "character_action": "The industrial steam locomotive awakens as dense white steam billows out vigorously from beneath the chassis, enveloping the heavy spoked wheels in swirling vapor.",
+        "camera_motion": "Slow forward tracking push gliding low toward the steaming locomotive front.",
+        "environment_dynamics": "Volumetric golden sunbeams stream through high shed windows, illuminating expanding steam clouds against weathered brick walls and steel roof trusses.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 23,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "Heavy cast-iron gears rotate deliberately on the workbench as venting steam plumes puff steadily from overhead pipes above glowing coal piles.",
+        "camera_motion": "Slow forward tracking push gliding diagonally across the industrial workbench.",
+        "environment_dynamics": "Flickering orange embers and forge furnaces cast dynamic warm firelight across dark machinery and rising steam plumes, preserving rigid workshop geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 24,
+      "duration_seconds": 6,
+      "video_prompt": {
+        "character_action": "The early 19th-century steam engine operates smoothly on the tramway, with its large spoked flywheel and interlocking spur gears rotating in mechanical unison.",
+        "camera_motion": "Slow forward tracking push gliding parallel along the side profile of the historic locomotive.",
+        "environment_dynamics": "Warm natural sunlight illuminates the rugged stone quarry walls, casting soft shadows across the wooden boiler casing and cast-iron gears.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 25,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "Water churns with intense boiling cavitation inside the cutaway chamber while the lower coal firebox pulses with continuous incandescent heat.",
+        "camera_motion": "Slow forward tracking push moving toward the glowing firebox and boiling cutaway window.",
+        "environment_dynamics": "Intense orange firebox radiance illuminates the polished steel boiler hull, contrasting against cool blue workshop ambient lighting and rigid piping geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 26,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "Pressurized steam expands rapidly inside the cylinder bore, driving the heavy steel piston head and connecting rod firmly outward in a mechanical stroke.",
+        "camera_motion": "Slow forward tracking push moving laterally alongside the piston stroke axis.",
+        "environment_dynamics": "Turbulent white steam swirls aggressively within the cutaway cylinder, with studio rim lights highlighting polished metallic chamfers and rigid mechanical cross-section geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 27,
+      "duration_seconds": 4,
+      "video_prompt": {
+        "character_action": "Steam vents continuously in a steady plume from the copper kettle spout, mirrored by pressurized vapor rising from the miniature iron locomotive smokebox.",
+        "camera_motion": "Slow forward tracking push moving smoothly across the wooden workbench between the kettle and boiler.",
+        "environment_dynamics": "Overhead pendant lamps cast warm directional pools of light across the polished copper kettle and pitted iron boiler, with soft rising steam against neutral studio walls.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 28,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The brass valve cap lifts against internal spring pressure as a forceful jet of pressurized steam vents continuously through the valve aperture.",
+        "camera_motion": "Slow macro forward tracking push gliding toward the escaping steam plume at the valve nozzle.",
+        "environment_dynamics": "Warm raking golden sunlight illuminates the escaping steam vapor, casting sharp metallic highlights across the hexagonal brass nut and riveted boiler skin.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 29,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The heavy counterbalanced driving wheels spin with continuous rotational speed as the forged connecting rods pump rhythmically back and forth along the steel rail.",
+        "camera_motion": "Fast-paced ground-level forward tracking shot pacing alongside the rotating driving wheels.",
+        "environment_dynamics": "Light steam wisps curl around the rapidly moving valve linkages, with motion-blurred track ballast and crisp metallic highlights on the driving wheel rims.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 30,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The primitive 1804 steam locomotive chugs steadily across the stone trestle bridge, hauling its coal-laden iron wagons with deliberate, persistent pace.",
+        "camera_motion": "Slow elevated forward tracking flight path gliding parallel with the train across the river valley.",
+        "environment_dynamics": "Soft atmospheric haze hangs over the rugged Welsh mountains, with smoke drifting from the tall chimney across the stone bridge and riverbed.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 31,
+      "duration_seconds": 6,
+      "video_prompt": {
+        "character_action": "The weathered steam locomotive rests stationary over the inspection pit as thin wisps of white steam drift slowly upward from its chimney and boiler fittings.",
+        "camera_motion": "Slow forward tracking push moving at eye level toward the front buffer beam.",
+        "environment_dynamics": "Volumetric shafts of sunlight pierce the dusty shed atmosphere, illuminating rough brick walls and soot-stained steel plating with rigid architectural perspective.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 32,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The heavy iron shovel tips downward, discharging black coal chunks into the incandescent firebox as glowing embers and sparks erupt outward into the cab.",
+        "camera_motion": "Slow forward tracking push gliding directly toward the open, glowing firebox door.",
+        "environment_dynamics": "Blinding orange firelight casts dynamic flickering reflections across the cast-iron backhead and brass pressure dials, maintaining rigid interior cab geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 33,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The holographic locomotive wireframe pulses with internal thermal flow as radiant orange heat waves vent continuously outward from the boiler and stack into the air.",
+        "camera_motion": "Slow forward tracking push moving diagonally toward the glowing thermal boiler.",
+        "environment_dynamics": "Vibrant orange thermal energy waves illuminate the dark technical diagnostic hangar, casting soft colored reflections across polished floors and server racks.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 34,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The engineer leans intently over the wooden drafting desk, his hands resting on the parchment blueprint as his head turns slightly to examine the locomotive schematics.",
+        "camera_motion": "Slow forward tracking push gliding toward the engineer and the illuminated drafting table.",
+        "environment_dynamics": "Warm golden afternoon sunlight streams through arched factory windows, illuminating floating dust motes and casting soft shadows across the wooden drafting tables.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 35,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The vintage steam engine idles quietly in the dark historical shed on the left, while the modern streamlined train stands ready under brilliant linear lighting on the right.",
+        "camera_motion": "Slow forward tracking push moving down the center dividing line between the two maintenance bays.",
+        "environment_dynamics": "Warm amber incandescent light from the brick shed contrasts sharply with crisp cool-white linear LEDs across the polished modern depot floor, preserving rigid structural symmetry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 36,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The locomotive boiler pulses with intense radiant red-orange heat while concentric acoustic shockwaves and black smoke billow into the air, with minimal kinetic transfer to the wheels.",
+        "camera_motion": "Slow forward tracking push gliding diagonally across the dark hangar floor toward the locomotive.",
+        "environment_dynamics": "Concentric acoustic ripples expand through the dark atmospheric hangar as radiant heat and billowing smoke illuminate the polished floor with rigid geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 37,
+      "duration_seconds": 4,
+      "video_prompt": {
+        "character_action": "Rows of retired steam locomotives sit abandoned along the rusted sidings, their iron hulls weathered by rust and encroaching moss in quiet stagnation.",
+        "camera_motion": "Slow elevated forward tracking flight path gliding smoothly above the parallel rusted rail tracks.",
+        "environment_dynamics": "Cool overcast twilight casts diffuse, somber reflections on wet scrap iron and damp grass, preserving rigid rail yard perspectives.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 38,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The distant train crosses the wooden trestle bridge, tracing the endless curving rail line across the vast, non-electrified mountain valley.",
+        "camera_motion": "Slow elevated forward tracking flight path gliding smoothly above the sweeping curve of the railway line.",
+        "environment_dynamics": "Low golden sunlight casts long shadows across rolling grassy hills and pine forests, illuminating snow-capped peaks with crisp atmospheric depth.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 39,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The unskinned locomotive frame displays its exposed internal diesel engines and heavy driveshaft assembly in clean static alignment on the showroom floor.",
+        "camera_motion": "Slow forward tracking push moving at a low three-quarter angle alongside the exposed steel truss chassis.",
+        "environment_dynamics": "Overhead linear strip lights cast crisp, elongated reflections along the polished floor and structural steel beams, emphasizing rigid CAD-level mechanical geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 40,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The streamlined stainless-steel locomotive idles with authority beside the platform, its forward headlight glowing brightly as light vapor vents from the roof.",
+        "camera_motion": "Slow forward tracking push gliding low across the reflective marble platform toward the rounded locomotive nose.",
+        "environment_dynamics": "Warm golden terminal chandeliers and arched glass skylights reflect richly across the polished marble floor and fluted stainless steel body, with rigid art-deco architecture.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 41,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The central diesel engine block hovers steadily above the wheel bogies, demonstrating a complete physical gap with zero mechanical driveshafts connecting to the axles.",
+        "camera_motion": "Slow forward tracking push moving at an eye-level angle toward the floating engine assembly.",
+        "environment_dynamics": "Neutral studio lighting highlights the brushed metallic casing of the diesel engine and casts soft contact shadows beneath the wheel bogies, preserving rigid geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 42,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The diesel engine pistons cycle rhythmically to spin the copper-wound generator, which pulses with warm electromagnetic glow as thick cables transmit power down to the axle motors.",
+        "camera_motion": "Slow forward tracking push gliding along the drive shaft toward the glowing generator core.",
+        "environment_dynamics": "Warm orange electromagnetic lighting from the generator copper windings illuminates the dark diagnostic workshop, contrasting against cool blue floor light strips and rigid CAD machinery.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 43,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The compact generator inside the vehicle's transparent rear compartment hums with subtle kinetic vibration, routing steady electrical current through illuminated cables into the chassis.",
+        "camera_motion": "Slow forward tracking push moving diagonally toward the exposed rear generator unit.",
+        "environment_dynamics": "Soft diffused light from the curved white studio wall reflects across the brushed aluminum chassis and glossy dark floor, with stable cyan accent lighting and rigid vehicle contours.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 44,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The polished stainless-steel streamliner glides rapidly along the river curve, its aerodynamic nose cutting smoothly through the air with continuous cruising momentum.",
+        "camera_motion": "Fast-paced forward tracking shot pacing alongside the streamlined stainless-steel carriages.",
+        "environment_dynamics": "Bright afternoon sunlight glints sharply off the fluted stainless-steel body and shimmering river surface, with crisp landscape shadows and rigid track geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 45,
+      "duration_seconds": 6,
+      "video_prompt": {
+        "character_action": "The heavy 4,400-horsepower diesel locomotive idles with deep mechanical resonance on the tracks, its high-intensity headlights casting powerful beams into the dusk air.",
+        "camera_motion": "Slow low-angle forward tracking push moving straight toward the front pilot plow of the locomotive.",
+        "environment_dynamics": "Warm dusk sunset clouds glow behind towering container stacks and gantry cranes, while bright halogen headlights cast sharp specular highlights on the gravel track bed.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 46,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The amber diesel fuel sloshes heavily inside the transparent cutaway tank, demonstrating massive fluid dead weight suspended beneath the locomotive chassis.",
+        "camera_motion": "Slow forward tracking push gliding alongside the length of the illuminated fuel tank.",
+        "environment_dynamics": "Warm work lights from the concrete inspection pit illuminate the sloshing liquid amber fuel, casting steady reflections across industrial pipes with rigid pit geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 47,
+      "duration_seconds": 6,
+      "video_prompt": {
+        "character_action": "The diesel passenger locomotive charges forward at top speed against heavy aerodynamic drag, venting dark exhaust smoke from its roof as ground dust churns along the trucks.",
+        "camera_motion": "Fast forward tracking shot pacing alongside the locomotive body across the prairie.",
+        "environment_dynamics": "Turbulent wind whips dry prairie grass beneath dark stormy rain clouds, with exhaust smoke trailing backward and rigid track bed perspective.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 48,
+      "duration_seconds": 4,
+      "video_prompt": {
+        "character_action": "The diesel fuel nozzle dissolves into bursting energy sparks across the upper panels, transforming into high-voltage electrical arcing across copper catenary cables in the lower panels.",
+        "camera_motion": "Slow forward tracking push moving directly toward the central intersection of the quad split screen.",
+        "environment_dynamics": "Vibrant blue and orange electrical arcs crackle across polished metallic surfaces and control room consoles, maintaining rigid grid partition lines.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 49,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "Heavy combustion engines and liquid fuel tanks eject cleanly away from the floating train frame, disintegrating into vapor and leaving a lightweight aerodynamic skeleton.",
+        "camera_motion": "Slow forward tracking push gliding toward the center of the levitating lightweight train frame.",
+        "environment_dynamics": "Glowing cyan holographic rings and ceiling light rings cast crisp reflections across the polished showroom floor, preserving rigid laboratory architecture.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 50,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The sleek Shinkansen bullet train glides smoothly out of the concrete tunnel mouth onto the elevated viaduct with silent, effortless momentum.",
+        "camera_motion": "Slow forward tracking push moving along the concrete viaduct wall toward the bullet train nose.",
+        "environment_dynamics": "Golden morning sunlight glints sharply along the polished aerodynamic nose, with soft valley mist rising over rural green hills and rigid concrete tunnel architecture.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 51,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The stainless steel pantograph contact shoe glides smoothly along the copper catenary wire, emitting bright electrical sparks at the contact junction.",
+        "camera_motion": "Fast-paced forward tracking shot matching the gliding velocity of the pantograph along the catenary wire.",
+        "environment_dynamics": "Bright midday sunlight glints across the polished tubular pantograph frame, with electrical sparks flashing against the clear blue sky and rigid wire geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 52,
+      "duration_seconds": 6,
+      "video_prompt": {
+        "character_action": "The elevated high-speed concrete tracks and overhead catenary masts stretch in razor-straight perspective into the far horizon.",
+        "camera_motion": "Fast forward tracking flight path cruising down the exact centerline of the elevated viaduct.",
+        "environment_dynamics": "Bright daylight illuminates lush green fields flanking the concrete bridge, with overhead catenary wires and steel masts creating a rigid symmetrical corridor.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 53,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The lightweight high-speed train glides smoothly across the elevated viaduct, drawing power from the interconnected grid linked to the distant power plant.",
+        "camera_motion": "Slow elevated forward tracking flight path gliding parallel to the elevated transit corridor.",
+        "environment_dynamics": "Bright sunny daylight casts clean shadows across the green valley and industrial park, with cooling towers emitting faint white plumes beneath high-voltage power lines.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 54,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The braided copper contact strips beneath the toy slot car press firmly against the metallic rails, generating tiny electric sparks as current flows.",
+        "camera_motion": "Slow macro forward tracking push gliding low toward the copper pickup braids of the slot car.",
+        "environment_dynamics": "Warm living room desk lamp lighting casts soft ambient highlights on the weathered wood tabletop, with electric blue sparks illuminating the metallic track slots.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 55,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The lightweight slot car banks sharply along the banked plastic curve at high speed, its wheels spinning rapidly as LED headlights shine brightly.",
+        "camera_motion": "Fast forward tracking shot moving alongside the curving track to keep pace with the racing slot car.",
+        "environment_dynamics": "Warm living room lamplight creates soft reflections along the translucent curved track barriers, with the unburdened vehicle cornering without mechanical wobble.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 56,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The classic Series 0 Shinkansen curves smoothly along the elevated station platform track, its warm round headlight glowing as it departs.",
+        "camera_motion": "Slow forward tracking push moving at platform level toward the rounded nose of the bullet train.",
+        "environment_dynamics": "Morning sunlight bathes the snow-capped peak of Mount Fuji and suburban rooftops, casting crisp linear shadows along the elevated concrete viaduct.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 57,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The pantograph contact shoe maintains high-speed sliding friction against the overhead wire, generating continuous high-voltage cyan electric arcs at the contact point.",
+        "camera_motion": "Fast forward tracking shot pacing alongside the sparking pantograph shoe along the wire.",
+        "environment_dynamics": "Intense cyan electrical sparks illuminate the dark twilight sky, casting rapid specular flashes across the braided copper wire and tubular steel arms.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 58,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The aerodynamic bullet train cruises effortlessly at 320 km/h along the elevated concrete viaduct, slicing cleanly through the air without mechanical turbulence.",
+        "camera_motion": "Fast elevated forward tracking flight path gliding smoothly parallel to the speeding bullet train.",
+        "environment_dynamics": "Crisp morning sunlight illuminates lush green terraced rice paddies and mountain valleys below, with gentle atmospheric haze across distant forested ridges.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 59,
+      "duration_seconds": 6,
+      "video_prompt": {
+        "character_action": "The futuristic silver train glides to a silent, smooth stop at the platform as passengers walk along the concourse beside glowing cyan body lights.",
+        "camera_motion": "Slow forward tracking push moving at eye level along the passenger concourse toward the sleek train nose.",
+        "environment_dynamics": "Overhead linear lights reflect across the polished terrazzo platform and arched glass canopy, maintaining rigid architectural curves and calm terminal ambiance.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 60,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The luminous Earth globe rotates steadily within concentric metallic time-zone rings as internal brass clockwork gears turn in synchronized precision.",
+        "camera_motion": "Slow forward tracking push gliding directly toward the glowing central globe.",
+        "environment_dynamics": "Luminescent blue and gold meridian rings cast soft celestial highlights over dark brushed steel gears and astronomical observatory consoles with rigid geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 61,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The hands of the multiple brass wall clocks tick forward at differing local times, emphasizing temporal conflict across the dispatch office.",
+        "camera_motion": "Slow forward tracking push moving across the wooden dispatch desk toward the wall of conflicting clocks.",
+        "environment_dynamics": "Green banker lamps cast warm localized pools of light on the wooden desk and paper ledgers, with soft atmospheric dust motes floating in front of the dark oak paneling.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 62,
+      "duration_seconds": 4,
+      "video_prompt": {
+        "character_action": "The brass telegraph key lever clicks downward with rhythmic mechanical pulses as the exposed pocket watch gears tick in synchronized cadence.",
+        "camera_motion": "Slow macro forward tracking push moving smoothly toward the exposed watch movement and telegraph key.",
+        "environment_dynamics": "Warm light from the green glass banker lamp pools across the aged paper logbook and brass mechanism, casting soft shadows across the wooden desk.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 63,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The wearer holds their wrist steady as the digital smartwatch screen displays the synchronized countdown time while the sleek train rushes into the platform.",
+        "camera_motion": "Slow forward tracking push moving along the forearm toward the glowing digital watch screen.",
+        "environment_dynamics": "Pulsing blue platform LED strips and train headlights reflect sharply on the watch glass, with track vibration and rigid modern station architecture.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 64,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "The aerodynamic bullet train decelerates to a flawless, gentle stop along the platform edge, aligning precisely with waiting passengers beneath the on-time displays.",
+        "camera_motion": "Slow low-angle forward tracking push moving straight down the gleaming steel rails toward the docked train nose.",
+        "environment_dynamics": "Warm linear canopy lights reflect intensely along the polished steel rail crowns and station floor tiles, preserving rigid architectural perspective.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    }
+  ]
+}

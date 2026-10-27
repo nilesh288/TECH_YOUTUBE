@@ -1,0 +1,56 @@
+{
+  "project": "voice_over",
+  "total_scenes": 5,
+  "scenes": [
+    {
+      "scene_number": 1,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The commuter in a dark coat stands still at the platform edge, looking calmly down the track as the distant bullet train approaches.",
+        "camera_motion": "Slow forward tracking dolly gliding smoothly along the platform floor.",
+        "environment_dynamics": "Warm linear LED lights cast steady reflections on polished platform tiles beneath an open glass canopy, with stable twilight lighting and rigid architectural geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 2,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "Fingers carefully settle the machined steel coin upright onto the polished rail crown, gently releasing contact to let it balance independently.",
+        "camera_motion": "Slow forward tracking push along the reflective surface of the rail toward the contact point.",
+        "environment_dynamics": "Crisp specular reflections on the mirror-finish steel rail surface, with steady ambient platform lighting and shallow depth of field maintaining rigid geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 3,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The gloved index finger delivers a gentle, precise tap to the steel disc, sending it gliding forward along the metallic track guides as the hand lifts away.",
+        "camera_motion": "Low-angle forward tracking shot traveling smoothly alongside the gliding disc.",
+        "environment_dynamics": "Cyan linear LED lights produce steady metallic specular streaks along the rails and disc edges, with static studio background depth and rigid geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 4,
+      "duration_seconds": 10,
+      "video_prompt": {
+        "character_action": "On the left side, the steel disc coasts continuously forward along the metal track; on the right side, the duplicate disc violently chatters to a rapid halt against the coarse asphalt.",
+        "camera_motion": "Steady forward tracking push centered on the dual test beds.",
+        "environment_dynamics": "High-contrast studio lighting reveals sleek specular highlights on the metal rail and gritty surface shadows on the textured asphalt, maintaining rigid mechanical test rig geometry.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    },
+    {
+      "scene_number": 5,
+      "duration_seconds": 8,
+      "video_prompt": {
+        "character_action": "The upright steel coin rolls forward along the crown of the rail with steady gyroscopic balance, coasting smoothly into the distance.",
+        "camera_motion": "Fast forward tracking shot matching the rolling coin at low track level.",
+        "environment_dynamics": "Linear overhead lights create rhythmic streaks across the arched canopy ribs and polished steel rail, maintaining rigid tunnel perspective.",
+        "technical_settings": "Ultra realistic, cinematic quality, Veo 3 optimized"
+      }
+    }
+  ]
+}
